@@ -1,15 +1,13 @@
 package result;
 
-public class Result {
+public class LoadResult {
 
-  //have this be the superclass
-  //all services just return a result (and it could also be an error result
   private String message;
   private boolean success;
 
-  public Result(String message) {
+  public LoadResult(String message, boolean success) {
     this.message=message;
-    this.success=true;
+    this.success=success;
   }
 
   public String getMessage() {

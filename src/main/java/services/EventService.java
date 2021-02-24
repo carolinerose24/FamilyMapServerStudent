@@ -1,12 +1,12 @@
 package services;
 
 import request.EventRequest;
-import result.Result;
+import result.EventResult;
 
 public class EventService {
 
 
-  public Result getFamilyEvents(EventRequest request){
+  public EventResult getFamilyEvents(EventRequest request){
 
     return null;
   }

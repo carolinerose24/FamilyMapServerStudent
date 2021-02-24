@@ -1,6 +1,6 @@
 package result;
 
-public class EventIDResult extends Result {
+public class EventIDResult {
 
   private String username;
   private String eventID;
@@ -11,10 +11,11 @@ public class EventIDResult extends Result {
   private String city;
   private String eventType;
   private int year;
+
+  private String message;
   private boolean success;
 
-  public EventIDResult(String message, String username, String eventID, String personID, float latitude, float longitude, String country, String city, String eventType, int year, boolean success) {
-    super(message);
+  public EventIDResult(String username, String eventID, String personID, float latitude, float longitude, String country, String city, String eventType, int year, boolean success) {
     this.username=username;
     this.eventID=eventID;
     this.personID=personID;
@@ -24,6 +25,11 @@ public class EventIDResult extends Result {
     this.city=city;
     this.eventType=eventType;
     this.year=year;
+    this.success=success;
+  }
+
+  public EventIDResult(String message, boolean success){
+    this.message=message;
     this.success=success;
   }
 
@@ -99,12 +105,18 @@ public class EventIDResult extends Result {
     this.year=year;
   }
 
-  @Override
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message=message;
+  }
+
   public boolean isSuccess() {
     return success;
   }
 
-  @Override
   public void setSuccess(boolean success) {
     this.success=success;
   }

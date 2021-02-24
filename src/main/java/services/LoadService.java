@@ -1,12 +1,12 @@
 package services;
 
 import request.LoadRequest;
-import result.Result;
+import result.LoadResult;
 
 public class LoadService {
 
 
-  public Result loadData(LoadRequest request){
+  public LoadResult loadData(LoadRequest request){
 
 
 
