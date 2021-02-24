@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Model class for Event Objects
+ */
 public class EventModel {
 
   private String eventID;
@@ -12,6 +15,18 @@ public class EventModel {
   private String eventType;
   private int year;
 
+  /**
+   * Constructor for Event Objects
+   * @param eventID
+   * @param username
+   * @param personID
+   * @param latitude
+   * @param longitude
+   * @param country
+   * @param city
+   * @param eventType
+   * @param year
+   */
   public EventModel(String eventID, String username, String personID, float latitude, float longitude, String country, String city, String eventType, int year) {
     this.eventID=eventID;
     this.username=username;
@@ -94,5 +109,31 @@ public class EventModel {
 
   public void setYear(int year) {
     this.year=year;
+  }
+
+
+  /**
+   * Equals Override Method for comparing Events
+   * @param o
+   * @return true/false
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (o == null)
+      return false;
+    if (o instanceof EventModel) {
+      EventModel oEvent = (EventModel) o;
+      return oEvent.getEventID().equals(getEventID()) &&
+              oEvent.getUsername().equals(getUsername()) &&
+              oEvent.getPersonID().equals(getPersonID()) &&
+              oEvent.getLatitude() == (getLatitude()) &&
+              oEvent.getLongitude() == (getLongitude()) &&
+              oEvent.getCountry().equals(getCountry()) &&
+              oEvent.getCity().equals(getCity()) &&
+              oEvent.getEventType().equals(getEventType()) &&
+              oEvent.getYear() == (getYear());
+    } else {
+      return false;
+    }
   }
 }

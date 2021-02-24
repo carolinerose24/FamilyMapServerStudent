@@ -1,5 +1,8 @@
 package result;
 
+/**
+ * Class for Login Results
+ */
 public class LoginResult {
 
   private String authToken;
@@ -9,6 +12,13 @@ public class LoginResult {
   private String message;
   private boolean success;
 
+  /**
+   * Constructor for Successful Login Results
+   * @param authToken
+   * @param username
+   * @param personID
+   * @param success
+   */
   public LoginResult(String authToken, String username, String personID, boolean success) {
     this.authToken=authToken;
     this.username=username;
@@ -16,6 +26,11 @@ public class LoginResult {
     this.success=success;
   }
 
+  /**
+   * Constructor for failed Login Results
+   * @param message
+   * @param success
+   */
   public LoginResult(String message, boolean success){
     this.message=message;
     this.success=success;

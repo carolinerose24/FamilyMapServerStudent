@@ -3,9 +3,17 @@ package services;
 import request.LoginRequest;
 import result.LoginResult;
 
+/**
+ * Class for Login Service
+ */
 public class LoginService {
 
 
+  /**
+   * Function to validate a login
+   * @param request a Login Request Object
+   * @return Login Result
+   */
   public LoginResult userLogin(LoginRequest request){
 
 

@@ -1,5 +1,8 @@
 package result;
 
+/**
+ * Class for Register Results
+ */
 public class RegisterResult {
 
   private String authToken;
@@ -9,6 +12,13 @@ public class RegisterResult {
   private String message;
   private boolean success;
 
+  /**
+   * Constructor for Successful Register Results
+   * @param authToken
+   * @param username
+   * @param personID
+   * @param success
+   */
   public RegisterResult(String authToken, String username, String personID, boolean success) {
     this.authToken=authToken;
     this.username=username;
@@ -17,6 +27,11 @@ public class RegisterResult {
   }
 
 
+  /**
+   * Constructor for failed Register Results
+   * @param message
+   * @param success
+   */
   public RegisterResult(String message, boolean success){
     this.message=message;
     this.success=success;

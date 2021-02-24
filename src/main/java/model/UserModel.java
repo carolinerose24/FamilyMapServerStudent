@@ -1,5 +1,10 @@
 package model;
 
+import java.util.Objects;
+
+/**
+ * Model class for User Objects
+ */
 public class UserModel {
 
   private String username;
@@ -10,6 +15,16 @@ public class UserModel {
   private String lastName;
   private String gender;
 
+  /**
+   * Constructor for User Objects
+   * @param username
+   * @param personID
+   * @param password
+   * @param email
+   * @param firstName
+   * @param lastName
+   * @param gender
+   */
   public UserModel(String username, String personID, String password, String email, String firstName, String lastName, String gender) {
     this.username=username;
     this.personID=personID;
@@ -75,4 +90,24 @@ public class UserModel {
   public void setGender(String gender) {
     this.gender=gender;
   }
+
+  /**
+   * Equals Override Method for comparing Users
+   * @param o
+   * @return true/false
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) {return false;}
+    UserModel userModel=(UserModel) o;
+    return username.equals(userModel.username) &&
+            personID.equals(userModel.personID) &&
+            password.equals(userModel.password) &&
+            email.equals(userModel.email) &&
+            firstName.equals(userModel.firstName) &&
+            lastName.equals(userModel.lastName) &&
+            gender.equals(userModel.gender);
+  }
+
 }

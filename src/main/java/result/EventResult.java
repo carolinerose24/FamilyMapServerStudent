@@ -3,6 +3,9 @@ package result;
 import model.EventModel;
 import request.EventRequest;
 
+/**
+ * Class for Event Results
+ */
 public class EventResult {
 
   private EventModel[] eventsList;
@@ -10,11 +13,21 @@ public class EventResult {
   private String message;
   private boolean success;
 
+  /**
+   * Constructor for Successful Event Results
+   * @param eventsList
+   * @param success
+   */
   public EventResult(EventModel[] eventsList, boolean success) {
     this.eventsList=eventsList;
     this.success=success;
   }
 
+  /**
+   * Constructor for failed Event Results
+   * @param message
+   * @param success
+   */
   public EventResult(String message, boolean success){
     this.message=message;
     this.success=success;

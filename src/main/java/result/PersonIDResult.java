@@ -1,5 +1,8 @@
 package result;
 
+/**
+ * Class for Person ID Results
+ */
 public class PersonIDResult {
 
   private String username;
@@ -14,6 +17,18 @@ public class PersonIDResult {
   private String message;
   private boolean success; //which will always be true in this case
 
+  /**
+   * Constructor for Successful Person ID Results
+   * @param username
+   * @param personID
+   * @param firstName
+   * @param lastName
+   * @param gender
+   * @param fatherID
+   * @param motherID
+   * @param spouseID
+   * @param success
+   */
   public PersonIDResult(String username, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
     this.username=username;
     this.personID=personID;
@@ -26,6 +41,11 @@ public class PersonIDResult {
     this.success=success;
   }
 
+  /**
+   * Constructor for failed Person ID Results
+   * @param message
+   * @param success
+   */
   public PersonIDResult(String message, boolean success){
     this.message=message;
     this.success=success;

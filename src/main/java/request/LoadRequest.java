@@ -4,12 +4,21 @@ import model.EventModel;
 import model.PersonModel;
 import model.UserModel;
 
+/**
+ * Class for Load Requests
+ */
 public class LoadRequest {
 
   private UserModel[] userList;
   private PersonModel[] personList;
   private EventModel[] eventList;
 
+  /**
+   * Constructor for Load Requests
+   * @param userList
+   * @param personList
+   * @param eventList
+   */
   public LoadRequest(UserModel[] userList, PersonModel[] personList, EventModel[] eventList) {
     this.userList=userList;
     this.personList=personList;

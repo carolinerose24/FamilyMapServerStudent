@@ -3,15 +3,18 @@ package services;
 import request.RegisterRequest;
 import result.RegisterResult;
 
+/**
+ * Class for Register Service
+ */
 public class RegisterService {
 
   //only method in here should take in a request object and give out a result object
 
-  /*
-  * this method creates a new user account, generates 4 generations, logs ins, and returns auth token
-  *
-  *
-  */
+  /**
+   * Function to register a user
+   * @param request Register Request object
+   * @return some information including an auth token
+   */
   public RegisterResult registerUser(RegisterRequest request){
 
     //else just return a RegisterResult

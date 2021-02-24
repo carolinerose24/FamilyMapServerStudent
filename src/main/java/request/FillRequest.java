@@ -1,10 +1,18 @@
 package request;
 
+/**
+ * Class for Fill Requests
+ */
 public class FillRequest {
 
   private String username;
   private int generations;
 
+  /**
+   * Constructor for Fill Requests
+   * @param username
+   * @param generations
+   */
   public FillRequest(String username, int generations) {
     this.username=username;
     this.generations=generations; //the default is 4 if they don't specify

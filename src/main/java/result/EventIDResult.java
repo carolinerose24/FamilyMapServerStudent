@@ -1,5 +1,8 @@
 package result;
 
+/**
+ * Class for Event ID Results
+ */
 public class EventIDResult {
 
   private String username;
@@ -15,6 +18,19 @@ public class EventIDResult {
   private String message;
   private boolean success;
 
+  /**
+   * Constructor for Successful Event ID Results
+   * @param username
+   * @param eventID
+   * @param personID
+   * @param latitude
+   * @param longitude
+   * @param country
+   * @param city
+   * @param eventType
+   * @param year
+   * @param success
+   */
   public EventIDResult(String username, String eventID, String personID, float latitude, float longitude, String country, String city, String eventType, int year, boolean success) {
     this.username=username;
     this.eventID=eventID;
@@ -28,6 +44,11 @@ public class EventIDResult {
     this.success=success;
   }
 
+  /**
+   * Constructor for failed Event ID Results
+   * @param message
+   * @param success
+   */
   public EventIDResult(String message, boolean success){
     this.message=message;
     this.success=success;

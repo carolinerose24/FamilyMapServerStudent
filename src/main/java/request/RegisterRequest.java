@@ -1,5 +1,8 @@
 package request;
 
+/**
+ * Class for Register Requests
+ */
 public class RegisterRequest {
 
   //this should hold all the data for the request object
@@ -13,6 +16,15 @@ public class RegisterRequest {
   private String message;
   private boolean success;
 
+  /**
+   * Constructor for Register Requests
+   * @param username
+   * @param password
+   * @param email
+   * @param firstName
+   * @param lastName
+   * @param gender
+   */
   public RegisterRequest(String username, String password, String email, String firstName, String lastName, String gender) {
     this.username=username;
     this.password=password;
@@ -21,13 +33,6 @@ public class RegisterRequest {
     this.lastName=lastName;
     this.gender=gender;
   }
-
-  public RegisterRequest(String message, boolean success){
-    this.message=message;
-    this.success=success;
-  }
-
-
 
   public String getUsername() {
     return username;

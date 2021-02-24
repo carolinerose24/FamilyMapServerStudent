@@ -1,5 +1,10 @@
 package model;
 
+import java.util.Objects;
+
+/**
+ * Model class for Person Objects
+ */
 public class PersonModel {
 
   private String personID;
@@ -11,6 +16,17 @@ public class PersonModel {
   private String motherID;
   private String spouseID;
 
+  /**
+   * Constructor for the Person Class
+   * @param personID
+   * @param username
+   * @param firstName
+   * @param lastName
+   * @param gender
+   * @param fatherID
+   * @param motherID
+   * @param spouseID
+   */
   public PersonModel(String personID, String username, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
     this.personID=personID;
     this.username=username;
@@ -85,4 +101,26 @@ public class PersonModel {
   public void setSpouseID(String spouseID) {
     this.spouseID=spouseID;
   }
+
+  /**
+   * Equals Override Method for comparing People
+   * @param o
+   * @return true/false
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) {return false;}
+    PersonModel that=(PersonModel) o;
+    return personID.equals(that.personID) &&
+            username.equals(that.username) &&
+            firstName.equals(that.firstName) &&
+            lastName.equals(that.lastName) &&
+            gender.equals(that.gender) &&
+            Objects.equals(fatherID, that.fatherID) &&
+            Objects.equals(motherID, that.motherID) &&
+            Objects.equals(spouseID, that.spouseID);
+  }
+
+
 }
