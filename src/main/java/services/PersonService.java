@@ -1,11 +1,11 @@
 package services;
 
 import request.PersonRequest;
-import result.Result;
+import result.PersonResult;
 
 public class PersonService {
 
-  public Result getFamilyMembers(PersonRequest request){
+  public PersonResult getFamilyMembers(PersonRequest request){
 
     return null;
   }

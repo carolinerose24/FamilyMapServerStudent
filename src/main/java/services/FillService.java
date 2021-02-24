@@ -1,12 +1,12 @@
 package services;
 
 import request.FillRequest;
-import result.Result;
+import result.FillResult;
 
 public class FillService {
 
 
-  public Result fillGenerations(FillRequest request){
+  public FillResult fillGenerations(FillRequest request){
 
     //checks if the username is already in the DB
     //deletes all data associated with that username (if any)

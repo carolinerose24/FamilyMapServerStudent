@@ -2,7 +2,6 @@ package services;
 
 import request.RegisterRequest;
 import result.RegisterResult;
-import result.Result;
 
 public class RegisterService {
 
@@ -13,10 +12,8 @@ public class RegisterService {
   *
   *
   */
-  public Result registerUser(RegisterRequest request){
+  public RegisterResult registerUser(RegisterRequest request){
 
-
-    //if anypart of it is invalid, then return an errorResult
     //else just return a RegisterResult
 
     //errors: Request property missing or has invalid value

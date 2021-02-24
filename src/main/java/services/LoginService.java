@@ -2,12 +2,11 @@ package services;
 
 import request.LoginRequest;
 import result.LoginResult;
-import result.Result;
 
 public class LoginService {
 
 
-  public Result userLogin(LoginRequest request){
+  public LoginResult userLogin(LoginRequest request){
 
 
     //needs to check for:

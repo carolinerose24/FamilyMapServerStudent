@@ -1,16 +1,24 @@
 package result;
 
-public class RegisterResult extends Result {
+public class RegisterResult {
 
   private String authToken;
   private String username;
   private String personID;
+
+  private String message;
   private boolean success;
 
   public RegisterResult(String authToken, String username, String personID, boolean success) {
     this.authToken=authToken;
     this.username=username;
     this.personID=personID;
+    this.success=success;
+  }
+
+
+  public RegisterResult(String message, boolean success){
+    this.message=message;
     this.success=success;
   }
 
@@ -44,5 +52,14 @@ public class RegisterResult extends Result {
 
   public void setSuccess(boolean success) {
     this.success=success;
+  }
+
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message=message;
   }
 }

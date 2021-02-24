@@ -1,11 +1,11 @@
 package services;
 
 import request.PersonIDRequest;
-import result.Result;
+import result.PersonIDResult;
 
 public class PersonIDService {
 
-  public Result personIDInformation(PersonIDRequest request){
+  public PersonIDResult personIDInformation(PersonIDRequest request){
 
 
     return null;

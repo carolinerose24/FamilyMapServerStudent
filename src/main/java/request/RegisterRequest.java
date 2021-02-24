@@ -10,6 +10,9 @@ public class RegisterRequest {
   private String lastName;
   private String gender;
 
+  private String message;
+  private boolean success;
+
   public RegisterRequest(String username, String password, String email, String firstName, String lastName, String gender) {
     this.username=username;
     this.password=password;
@@ -17,6 +20,11 @@ public class RegisterRequest {
     this.firstName=firstName;
     this.lastName=lastName;
     this.gender=gender;
+  }
+
+  public RegisterRequest(String message, boolean success){
+    this.message=message;
+    this.success=success;
   }
 
 

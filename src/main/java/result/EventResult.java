@@ -1,15 +1,22 @@
 package result;
 
 import model.EventModel;
+import request.EventRequest;
 
-public class EventResult extends Result{
+public class EventResult {
 
   private EventModel[] eventsList;
+
+  private String message;
   private boolean success;
 
-  public EventResult(String message, EventModel[] eventsList, boolean success) {
-    super(message);
+  public EventResult(EventModel[] eventsList, boolean success) {
     this.eventsList=eventsList;
+    this.success=success;
+  }
+
+  public EventResult(String message, boolean success){
+    this.message=message;
     this.success=success;
   }
 
@@ -21,12 +28,18 @@ public class EventResult extends Result{
     this.eventsList=eventsList;
   }
 
-  @Override
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message=message;
+  }
+
   public boolean isSuccess() {
     return success;
   }
 
-  @Override
   public void setSuccess(boolean success) {
     this.success=success;
   }

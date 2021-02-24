@@ -6,10 +6,17 @@ public class PersonResult {
 
   //array of person objects
   private PersonModel[] familyList;
+
+  private String message;
   private boolean success; //does this need getters/setters? it should always be true at this point
 
   public PersonResult(PersonModel[] familyList, boolean success) {
     this.familyList=familyList;
+    this.success=success;
+  }
+
+  public PersonResult(String message, boolean success){
+    this.message=message;
     this.success=success;
   }
 
@@ -27,5 +34,13 @@ public class PersonResult {
 
   public void setSuccess(boolean success) {
     this.success=success;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message=message;
   }
 }
