@@ -5,6 +5,8 @@ import model.PersonModel;
 import model.UserModel;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * User Data Access class to access the User table
@@ -48,29 +50,19 @@ public class UserDao {
     return null;
   }
 
-  /**
-   * Method to clear all the tables in the database
-   * @throws DataAccessException
-   */
-  public void clearTables() throws DataAccessException{}
-
-
-
 
   /**
-   * Method to open a connection
-   * @return Connection Object
+   * Clears the User table
    * @throws DataAccessException
    */
-  public Connection openConnection() throws DataAccessException {
-    return null;
+  public void clearUserTable() throws DataAccessException {
+    try (Statement stmt = conn.createStatement()){
+      String sql = "DELETE FROM User";
+      stmt.executeUpdate(sql);
+    } catch (SQLException e){
+      throw new DataAccessException("SQL Error encountered while clearing tables");
+    }
   }
 
-  /**
-   * Method to close the connection
-   * @param commit  boolean to verify we don't need to rollback
-   * @throws DataAccessException
-   */
-  public void closeConnection(boolean commit) throws DataAccessException {}
 
 }
