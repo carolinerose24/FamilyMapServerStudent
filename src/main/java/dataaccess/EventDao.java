@@ -15,7 +15,6 @@ public class EventDao {
 
   private final Connection conn;
 
-
   /**
    * Constructor to initialize the Connection Object
    * @param conn
