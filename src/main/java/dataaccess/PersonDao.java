@@ -97,4 +97,22 @@ public class PersonDao {
       throw new DataAccessException("SQL Error encountered while clearing tables");
     }
   }
+
+  /**
+   * TAKE A USERNAME AND RETURN all the people associated with that uSER
+   * @param Username
+   * @return
+   */
+  public UserModel getUsernameInfo (String Username){ //or should this be a usermodle object?
+
+    return null;
+  }
+
+  /**
+   * take in a user and then delete ALL THE PEOPLE ASSOCIATED WITH THAT USERNAME
+   * @param user
+   */
+  public void deleteUsernameData(UserModel user){
+
+  }
 }

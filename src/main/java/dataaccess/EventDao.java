@@ -1,6 +1,7 @@
 package dataaccess;
 
 import model.EventModel;
+import model.UserModel;
 
 import java.sql.*;
 
@@ -85,12 +86,6 @@ public class EventDao {
 
 
 
-
-
-
-
-
-
   /**
    * Clears the Event table
    * @throws DataAccessException
@@ -102,5 +97,27 @@ public class EventDao {
     } catch (SQLException e){
       throw new DataAccessException("SQL Error encountered while clearing tables");
     }
+  }
+
+
+
+
+  /**
+   * TAKE A USERNAME AND RETURN all the events associated with that person
+   * @param Username
+   * @return
+   */
+  public UserModel getUsernameEventsData (String Username){ //or should this be a usermodle object?
+
+    //should this return all the events associated with this user? yes
+    return null;
+  }
+
+  /**
+   * take in a user and then delete ALL THE events ASSOCIATED WITH THAT USERNAME
+   * @param user
+   */
+  public void deleteUsernameEventsData(UserModel user){
+
   }
 }
