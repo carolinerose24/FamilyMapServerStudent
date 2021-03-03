@@ -59,17 +59,17 @@ public class Database {
     }
   }
 
-//  /**
-////   * Method to clear All the tables (i don't think i need this here, it is specific to all the DAO classes?
-////   * @throws DataAccessException
-////   */
-////  public void clearTables() throws DataAccessException {
-////    try (Statement stmt = conn.createStatement()){
-////      String sql = "DELETE FROM User, Person, Event, AuthToken";
-////      stmt.executeUpdate(sql);
-////    } catch (SQLException e){
-////      throw new DataAccessException("SQL Error encountered while clearing tables");
-////    }
-////  }
+  /**
+//   * Method to clear All the tables (i don't think i need this here, it is specific to all the DAO classes?
+//   * @throws DataAccessException
+//   */
+  public void clearTables() throws DataAccessException {
+    try (Statement stmt = conn.createStatement()){
+      String sql = "DELETE FROM User AND Person AND Event AND AuthToken";
+      stmt.executeUpdate(sql);
+    } catch (SQLException e){
+      throw new DataAccessException("SQL Error encountered while clearing tables");
+    }
+  }
 
 }
