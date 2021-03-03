@@ -37,14 +37,15 @@ public class UserDao {
     try (PreparedStatement stmt = conn.prepareStatement(sql)){
       stmt.setString(1, user.getUsername());
       stmt.setString(2, user.getPersonID());
-      stmt.setString(2, user.getPassword());
-      stmt.setString(2, user.getEmail());
-      stmt.setString(2, user.getFirstName());
-      stmt.setString(2, user.getLastName());
-      stmt.setString(2, user.getGender());
+      stmt.setString(3, user.getPassword());
+      stmt.setString(4, user.getEmail());
+      stmt.setString(5, user.getFirstName());
+      stmt.setString(6, user.getLastName());
+      stmt.setString(7, user.getGender());
 
       stmt.executeUpdate();
     } catch (SQLException e){
+      e.printStackTrace();
       throw new DataAccessException("Error inserting a user");
     }
   }

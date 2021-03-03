@@ -22,7 +22,6 @@ class UserDaoTest {
     user1 = new UserModel("username1", "person1", "password1", "a@gmail.com", "Anna", "Jones", "f");
     user2 = new UserModel("username2", "person2", "password1", "a@gmail.com", "Anna", "Jones", "f");
     Connection conn = db.getConnection();
-    db.clearTables();
     uDao = new UserDao(conn);
   }
 

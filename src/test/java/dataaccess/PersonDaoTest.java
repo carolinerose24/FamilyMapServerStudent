@@ -22,9 +22,8 @@ class PersonDaoTest {
   void setup() throws DataAccessException {
     db = new Database();
     person1 = new PersonModel("person1", "username1", "anna", "smith", "f", "person10", "person11", "person12");
-    person1 = new PersonModel("person2", "username2", "katie", "jones", "f", "person10", "person11", "person12");
+    person2 = new PersonModel("person2", "username2", "katie", "jones", "f", "person10", "person11", "person12");
     Connection conn = db.getConnection();
-    db.clearTables();
     pDao = new PersonDao(conn);
   }
 

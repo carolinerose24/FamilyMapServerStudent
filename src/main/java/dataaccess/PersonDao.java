@@ -52,7 +52,9 @@ public class PersonDao {
    * @param person
    */
   public PersonModel findPerson(PersonModel person) throws DataAccessException{
-
+    if(person == null){
+      return null;
+    }
     PersonModel Person;
     ResultSet rs = null;
     String sql = "SELECT * FROM Person WHERE PersonID = ?;";
