@@ -27,6 +27,16 @@ public class RegisterService {
     //else interact with the DAO and the DB
 
 
+
+    //make a usermodel with the info (ret usermodel)
+    //make a personmodel (or do i need to make a person first for this database to work?
+    //generate the 4 default generations
+
+    //make a new auth token
+
+    //THEN make a RegisterResult from all of this combined data
+
+
     return null;
   }
 

@@ -2,10 +2,7 @@ package dataaccess;
 
 import model.EventModel;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Event Data Access class to access the Event table
@@ -31,14 +28,9 @@ public class EventDao {
    * @throws DataAccessException
    */
   public void addEvent(EventModel event) throws DataAccessException {
-    //We can structure our string to be similar to a sql command, but if we insert question
-    //marks we can change them later with help from the statement
     String sql = "INSERT INTO Events (EventID, AssociatedUsername, PersonID, Latitude, Longitude, " +
-            "Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
+            "Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?);";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-      //Using the statements built-in set(type) functions we can pick the question mark we want
-      //to fill in and give it a proper value. The first argument corresponds to the first
-      //question mark found in our sql String
       stmt.setString(1, event.getEventID());
       stmt.setString(2, event.getUsername());
       stmt.setString(3, event.getPersonID());
@@ -48,37 +40,36 @@ public class EventDao {
       stmt.setString(7, event.getCity());
       stmt.setString(8, event.getEventType());
       stmt.setInt(9, event.getYear());
-
       stmt.executeUpdate();
     } catch (SQLException e) {
-      throw new DataAccessException("Error encountered while inserting into the database");
+      throw new DataAccessException("Error when adding an event");
     }
   }
 
 
   /**
    * Finds a specific event from an eventID
-   * @param eventID
+   * @param event
    * @return EventModel object
    * @throws DataAccessException
    */
-  public EventModel find(String eventID) throws DataAccessException {
-    EventModel event;
+  public EventModel find(EventModel event) throws DataAccessException {
+    EventModel Event;
     ResultSet rs = null;
     String sql = "SELECT * FROM Events WHERE EventID = ?;";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-      stmt.setString(1, eventID);
+      stmt.setString(1, event.getEventID());
       rs = stmt.executeQuery();
       if (rs.next()) {
-        event = new EventModel(rs.getString("EventID"), rs.getString("AssociatedUsername"),
+        Event = new EventModel(rs.getString("EventID"), rs.getString("AssociatedUsername"),
                 rs.getString("PersonID"), rs.getFloat("Latitude"), rs.getFloat("Longitude"),
                 rs.getString("Country"), rs.getString("City"), rs.getString("EventType"),
                 rs.getInt("Year"));
-        return event;
+        return Event;
       }
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new DataAccessException("Error encountered while finding event");
+      throw new DataAccessException("Error while finding event");
     } finally {
       if(rs != null) {
         try {
@@ -90,5 +81,26 @@ public class EventDao {
 
     }
     return null;
+  }
+
+
+
+
+
+
+
+
+
+  /**
+   * Clears the Event table
+   * @throws DataAccessException
+   */
+  public void clearEventTable() throws DataAccessException {
+    try (Statement stmt = conn.createStatement()){
+      String sql = "DELETE FROM Event";
+      stmt.executeUpdate(sql);
+    } catch (SQLException e){
+      throw new DataAccessException("SQL Error encountered while clearing tables");
+    }
   }
 }

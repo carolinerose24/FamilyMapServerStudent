@@ -4,9 +4,7 @@ import model.AuthTokenModel;
 import model.PersonModel;
 import model.UserModel;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * User Data Access class to access the User table
@@ -29,24 +27,63 @@ public class UserDao {
   }
 
   /**
-   * Takes in the user information and adds them to the user, person, and auth tables and gives back
-   * the new authToken that was made
+   * Takes in the user information and adds them to the user table
    * @param user
-   * @return AuthTokenModel
    * @throws DataAccessException
    */
-  public AuthTokenModel addUser(UserModel user) throws DataAccessException{
-    return null;
+  public void addUser(UserModel user) throws DataAccessException{
+
+    String sql = "INSERT INTO User (Username, PersonID, Password, Email, FirstName, LastName, Gender) VALUES (?,?,?,?,?,?,?)";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, user.getUsername());
+      stmt.setString(2, user.getPersonID());
+      stmt.setString(2, user.getPassword());
+      stmt.setString(2, user.getEmail());
+      stmt.setString(2, user.getFirstName());
+      stmt.setString(2, user.getLastName());
+      stmt.setString(2, user.getGender());
+
+      stmt.executeUpdate();
+    } catch (SQLException e){
+      throw new DataAccessException("Error inserting a user");
+    }
   }
 
   /**
-   * Checks the username and password, returns info about that user and a new auth token
+   * Checks the username and password, returns info about that user
    * needs to also get the personID
    * @param user
    * @return AuthTokenModel
    * @throws DataAccessException
    */
-  public AuthTokenModel findUserLogin(UserModel user) throws DataAccessException{
+  public UserModel findUserLogin(UserModel user) throws DataAccessException{
+
+    UserModel User;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM User WHERE Username = ? AND Password = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, user.getUsername());
+      stmt.setString(2, user.getPassword());
+      rs = stmt.executeQuery();
+      if(rs.next()){
+        User = new UserModel(rs.getString("Username"), rs.getString("PersonID"),
+                rs.getString("Password"), rs.getString("Email"),
+                rs.getString("FirstName"),rs.getString("LastName"),
+                rs.getString("Gender"));
+        return User;
+      }
+    } catch (SQLException e){
+      e.printStackTrace();
+      throw new DataAccessException("Error when finding user");
+    } finally {
+      if(rs != null){
+        try{
+          rs.close();
+        } catch (SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }
     return null;
   }
 

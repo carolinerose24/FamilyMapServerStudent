@@ -11,6 +11,11 @@ public class Database {
 
 //we don't need a constructor, because we will never initialize the conn ourselves
 
+  /**
+   * Method to open a connection
+   * @return that connection
+   * @throws DataAccessException
+   */
   public Connection openConnection() throws DataAccessException {
     try{
       final String CONNECTION_URL = "jdbc:sqlite:familymap.sqlite";
@@ -23,6 +28,11 @@ public class Database {
     return conn;
   }
 
+  /**
+   * Method to retrieve the connection object
+   * @return connection
+   * @throws DataAccessException
+   */
   public Connection getConnection() throws DataAccessException {
     if(conn == null){
       return openConnection();
@@ -31,6 +41,11 @@ public class Database {
     }
   }
 
+  /**
+   * Method to close the connection
+   * @param commit boolean to tell the method to commit or rollback changes
+   * @throws DataAccessException
+   */
   public void closeConnection(boolean commit) throws DataAccessException {
     try{
       if(commit){
@@ -44,25 +59,17 @@ public class Database {
     }
   }
 
-  public void clearTables() throws DataAccessException {
-    try (Statement stmt = conn.createStatement()){
-      String sql = "DELETE FROM User, Person, Event, AuthToken";
-      stmt.executeUpdate(sql);
-    } catch (SQLException e){
-      throw new DataAccessException("SQL Error encountered while clearing tables");
-    }
-  }
-
-
-
-  //this should be almost the same as the database class in the example
-
-  //all the database functions
-  //open connection
-  //close connection
-  //get connection
-  //clear tables
-
-
+//  /**
+////   * Method to clear All the tables (i don't think i need this here, it is specific to all the DAO classes?
+////   * @throws DataAccessException
+////   */
+////  public void clearTables() throws DataAccessException {
+////    try (Statement stmt = conn.createStatement()){
+////      String sql = "DELETE FROM User, Person, Event, AuthToken";
+////      stmt.executeUpdate(sql);
+////    } catch (SQLException e){
+////      throw new DataAccessException("SQL Error encountered while clearing tables");
+////    }
+////  }
 
 }
