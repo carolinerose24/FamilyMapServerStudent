@@ -4,6 +4,7 @@ import model.PersonModel;
 import model.UserModel;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Person Data Access class to access the Person table
@@ -103,16 +104,60 @@ public class PersonDao {
    * @param Username
    * @return
    */
-  public UserModel getUsernameInfo (String Username){ //or should this be a usermodle object?
+  public ArrayList<PersonModel> getUsernameInfo (String Username) throws DataAccessException { //or should this be a usermodel object? --> i can change this later if need be
 
+    //query the person table based on the username
+    //return all the people that are associated with that username
+    //add them to an array, then return that
+
+    ArrayList<PersonModel> personArray = new ArrayList();
+    PersonModel Person;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM Person WHERE Username = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, Username);
+      rs = stmt.executeQuery();
+      while(rs.next()){
+
+        Person = new PersonModel(rs.getString("PersonID"), rs.getString("Username"),
+                rs.getString("FirstName"), rs.getString("LastName"),
+                rs.getString("Gender"),rs.getString("FatherID"),
+                rs.getString("MotherID"), rs.getString("SpouseID"));
+        personArray.add(Person);
+      }
+    } catch (SQLException e){
+      e.printStackTrace();
+      throw new DataAccessException("Error getting a person from a username");
+    } finally {
+      if(rs != null){
+        try{
+          rs.close();
+        } catch (SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }
+
+    if(!personArray.isEmpty()){
+      return personArray;
+    }
     return null;
   }
 
   /**
    * take in a user and then delete ALL THE PEOPLE ASSOCIATED WITH THAT USERNAME
-   * @param user
+   * @param Username
    */
-  public void deleteUsernameData(UserModel user){
+  public void deleteUsernameData(String Username) throws DataAccessException {
+
+    String sql = "DELETE FROM Person WHERE Username = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, Username);
+      stmt.executeUpdate(sql);
+    } catch (SQLException e){
+      e.printStackTrace();
+      throw new DataAccessException("Error deleting all people from a username");
+    }
 
   }
 }
