@@ -1,5 +1,9 @@
 package services;
 
+import dataaccess.DataAccessException;
+import dataaccess.Database;
+import dataaccess.PersonDao;
+import dataaccess.UserDao;
 import request.RegisterRequest;
 import result.RegisterResult;
 
@@ -16,6 +20,51 @@ public class RegisterService {
    * @return some information including an auth token
    */
   public RegisterResult registerUser(RegisterRequest request){
+
+
+    Database db = new Database();
+    try {
+      db.openConnection();
+      UserDao newUser = new UserDao(db.getConnection());
+      PersonDao newPerson = new PersonDao(db.getConnection());
+
+      //user the data is register request to make a usermodel and a personmodel
+      //then call the add user and person methods with the models
+
+      db.closeConnection(true);
+
+      //return authtoken, username, personID, success
+//      RegisterResult rslt = new RegisterResult();
+//      return rslt;
+
+
+
+    } catch (DataAccessException e){
+      db.closeConnection(false);
+      RegisterResult rslt = new RegisterResult("error - Register didn't work", false);
+      return rslt;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //else just return a RegisterResult
 
@@ -35,7 +84,6 @@ public class RegisterService {
     //make a new auth token
 
     //THEN make a RegisterResult from all of this combined data
-
 
     return null;
   }

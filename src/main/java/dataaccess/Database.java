@@ -23,7 +23,7 @@ public class Database {
       conn.setAutoCommit(false);
     } catch (SQLException e){
       e.printStackTrace();
-      throw new DataAccessException("Unable to open connection to database");
+      throw new DataAccessException("Error: Unable to open connection to database");
     }
     return conn;
   }
@@ -55,7 +55,7 @@ public class Database {
       }
     } catch (SQLException e){
       e.printStackTrace();
-      throw new DataAccessException("Unable to close database connection");
+      throw new DataAccessException("Error: Unable to close database connection");
     }
   }
 

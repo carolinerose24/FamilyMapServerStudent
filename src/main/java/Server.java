@@ -1,4 +1,5 @@
 import com.sun.net.httpserver.HttpServer;
+import handlers.DefaultHandler;
 import handlers.PersonHandler;
 import handlers.RegisterHandler;
 import services.RegisterService;
@@ -13,7 +14,7 @@ public class Server {
   private static final int MAX_WAITING_CONNECTIONS = 12;
   private HttpServer server;
 
-  private void run(String portNumber) throws IOException {
+  private void run(String portNumber) {
     System.out.println("Initializing HTTP server");
     try{
       server = HttpServer.create(
@@ -39,7 +40,7 @@ public class Server {
 
 
 
-    server.createContext("/", new FileHandler()); //this needs to be checked LAST
+    server.createContext("/", new DefaultHandler()); //this needs to be checked LAST
 
     System.out.println("Starting server");
     server.start();
@@ -52,7 +53,7 @@ public class Server {
    * Takes portNumber (unsigned 16 bit int --> just a random number)
    * @param args port number
    */
-  public static void main(String[] args){
+  public static void main(String[] args)  {
     String portNumber = args[0];
     new Server().run(portNumber);
   }
