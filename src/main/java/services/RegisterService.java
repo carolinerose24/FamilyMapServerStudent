@@ -40,8 +40,12 @@ public class RegisterService {
 
 
     } catch (DataAccessException e){
-      db.closeConnection(false);
-      RegisterResult rslt = new RegisterResult("error - Register didn't work", false);
+      try {
+        db.closeConnection(false);
+      } catch (DataAccessException ex) {
+        ex.printStackTrace();
+      }
+      RegisterResult rslt = new RegisterResult("error - Register service didn't work", false);
       return rslt;
     }
 
