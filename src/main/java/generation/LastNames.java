@@ -30,7 +30,7 @@ public class LastNames {
   private void initializeLastNames(){
     try{
       Gson gson = new Gson();
-      Reader reader =Files.newBufferedReader(Paths.get("/json/snames.json"));
+      Reader reader =Files.newBufferedReader(Paths.get("json", "snames.json"));
       List<String> nameList = new Gson().fromJson(reader, new TypeToken<List<String>>() {}.getType());
 
       for(String name : nameList){

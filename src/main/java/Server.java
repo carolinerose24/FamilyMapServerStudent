@@ -59,10 +59,12 @@ public class Server {
 
     //not sure if this is the right place to initialize these:
     //but we need to only fill them once, but somehow access them at the database level?
-    Locations = new LocationData();
-    fNames = new FirstNameF();
-    mNames = new FirstNameM();
-    lNames = new LastNames();
+
+//    fNames = new FirstNameF();
+//    mNames = new FirstNameM();
+//    lNames = new LastNames();
+//    Locations = new LocationData();
+//    System.out.println("Initialized json lists");
   }
 
 

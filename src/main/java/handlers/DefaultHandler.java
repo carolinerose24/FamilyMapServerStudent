@@ -5,11 +5,10 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
+import java.nio.file.*;
 
 public class DefaultHandler implements HttpHandler {
   @Override
@@ -28,7 +27,7 @@ public class DefaultHandler implements HttpHandler {
         //that path will tell you which file we want
         // plain / wants index.html
         String urlPath = exchange.getRequestURI().toString();
-        if(urlPath.equals("/")){
+        if(urlPath.equals("/") || urlPath == null){
           urlPath = "/index.html";
         }
         String filePath = "web" + urlPath;
@@ -40,8 +39,124 @@ public class DefaultHandler implements HttpHandler {
         //if file exists, read the file and write it to exchange's outputStream
         File file = new File(filePath);
         if(file.exists()){
+
           OutputStream respBody = exchange.getResponseBody();
-          Files.copy(file.toPath(), respBody);
+//          OutputStream respBody =  null;
+           // = exchange.getResponseBody();
+
+//          Files.copy(file.toPath(), respBody);
+          //need to somehow find a way to write the file into respBody outputstream
+
+
+
+          Path path = Paths.get(filePath);
+          byte[] data = Files.readAllBytes(path);
+
+          try{
+            respBody.write(data);
+          } catch (IOException e){
+            e.printStackTrace();
+          }
+
+//          for(int i = 0; i < data.length; ++i){
+//            respBody.write(data[i]);
+//          }
+
+//          respBody = exchange.getResponseBody();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//          OutputStream respBody = null;
+
+//          FileInputStream fileInputStream = null;
+//          int a = (int)file.length();
+//          byte[] bFile = new byte[(int) file.length()];
+//          try
+//          {
+//            //convert file into array of bytes
+//            fileInputStream = new FileInputStream(file);
+//            //respBody = new FileOutputStream(file);
+////            respBody = new OutputStream();
+//            fileInputStream.read(bFile);
+//            fileInputStream.close();
+//            //respBody.write(bFile);
+//
+//            for (int i = 0; i < bFile.length; i++)
+//            {
+////              System.out.print((char) bFile[i]);
+//              respBody.write(bFile[i]);
+//            }
+//            System.out.println("should have read the entire byte file now");
+//          }
+//          catch (Exception e)
+//          {
+//            e.printStackTrace();
+//          }
+
+
+//          respBody = exchange.getResponseBody();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//          try{
+////            FileInputStream fin=new FileInputStream(file);
+////            int i=0;
+////            while((i=fin.read())!=-1){
+//////              System.out.print((char)i);
+////              respBody.write(fin.readAllBytes());
+////            }
+////            fin.close();
+//
+//
+//            OutputStream outputStream = new FileOutputStream(file);
+//
+////            while(file.) {
+////              file
+////              outputStream.write(data);
+////            }
+////            outputStream.close();
+//
+//            respBody = outputStream;
+//
+//
+//          }catch(Exception e){System.out.println(e);}
+//
+
+
+
+
+
+
+
+
+
+
 
           exchange.sendResponseHeaders(HttpsURLConnection.HTTP_OK,0);
           respBody.close();
@@ -63,6 +178,7 @@ public class DefaultHandler implements HttpHandler {
     } catch (IOException e){
       exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
       exchange.getResponseBody().close();
+      System.out.println("error --> catch block of default handler");
       e.printStackTrace();
     }
 

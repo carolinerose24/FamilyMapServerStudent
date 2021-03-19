@@ -22,8 +22,15 @@ public class LocationData {
   private void initializeLocations(){
     try{
       Gson gson = new Gson();
-      Reader reader =Files.newBufferedReader(Paths.get("/json/locations.json"));
+      Reader reader =Files.newBufferedReader(Paths.get("json", "locations.json"));
+//      System.out.println("found the file");
       List<Location> locations = new Gson().fromJson(reader, new TypeToken<List<Location>>() {}.getType());
+
+
+
+
+//      Location locations = new Gson().fromJson(reader, new TypeToken<List<Location>>() {}.getType());
+//      List<Location> locations = new Gson().fromJson(reader, List.class);
 
       for(Location loc : locations){
         data.add(loc);

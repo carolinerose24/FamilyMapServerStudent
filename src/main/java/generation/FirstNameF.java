@@ -31,7 +31,7 @@ public class FirstNameF {
   private void initializeFemaleNames(){
     try{
       Gson gson = new Gson();
-      Reader reader =Files.newBufferedReader(Paths.get("/json/fnames.json"));
+      Reader reader =Files.newBufferedReader(Paths.get("json","fnames.json"));
       List<String> nameList = new Gson().fromJson(reader, new TypeToken<List<String>>() {}.getType());
 
       for(String name : nameList){
