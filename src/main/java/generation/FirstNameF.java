@@ -15,9 +15,7 @@ public class FirstNameF {
 
   private ArrayList<String> firstNameFList;
 
-
   public String getRandomLastName(){
-
     int upperbound = firstNameFList.size();
     if(upperbound == 0){
       return null; //this should never happen
@@ -27,26 +25,12 @@ public class FirstNameF {
     return firstNameFList.get(index);
   }
 
-
-//  private void initializeFemaleNames(){
-//    try{
-//      Gson gson = new Gson();
-//      Reader reader =Files.newBufferedReader(Paths.get("json","fnames.json"));
-//      List<String> nameList = new Gson().fromJson(reader, new TypeToken<List<String>>() {}.getType());
-//
-//      for(String name : nameList){
-//        firstNameFList.add(name);
-//      }
-//      reader.close();
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//  }
-
-
   public FirstNameF(){
-    //call the method to initialize it
-//    initializeFemaleNames();
+    firstNameFList = new ArrayList<>();
+  }
+
+  public FirstNameF(ArrayList<String> names){
+    firstNameFList = names;
   }
 
 

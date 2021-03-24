@@ -18,29 +18,6 @@ public class LocationData {
 
   private ArrayList<Location> data;
 
-
-//  private void initializeLocations(){
-//    try{
-//      Gson gson = new Gson();
-//      Reader reader =Files.newBufferedReader(Paths.get("json", "locations.json"));
-////      System.out.println("found the file");
-//      List<Location> locations = new Gson().fromJson(reader, new TypeToken<List<Location>>() {}.getType());
-//
-//
-//
-//
-////      Location locations = new Gson().fromJson(reader, new TypeToken<List<Location>>() {}.getType());
-////      List<Location> locations = new Gson().fromJson(reader, List.class);
-//
-//      for(Location loc : locations){
-//        data.add(loc);
-//      }
-//      reader.close();
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//  }
-
   public Location getRandomLocation(){
 
     int upperbound = data.size();
@@ -52,10 +29,12 @@ public class LocationData {
     return data.get(index);
   }
 
-
   public LocationData(){
     data = new ArrayList<>();
-//    initializeLocations();
   }
 
+  public LocationData(ArrayList<Location> lData){
+    data = lData;
+  }
+  
 }
