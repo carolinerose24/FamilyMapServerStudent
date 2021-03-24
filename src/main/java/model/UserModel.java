@@ -1,5 +1,7 @@
 package model;
 
+import request.RegisterRequest;
+
 import java.util.Objects;
 
 /**
@@ -33,6 +35,16 @@ public class UserModel {
     this.firstName=firstName;
     this.lastName=lastName;
     this.gender=gender;
+  }
+
+  public UserModel(RegisterRequest req){
+    this.username = req.getUsername();
+    this.personID = ""; //this needs to be updated by the userDAO class --> we don't know what this is yet (but it should be a unique value each time
+    this.password = req.getPassword();
+    this.email = req.getEmail();
+    this.firstName = req.getFirstName();
+    this.lastName = req.getLastName();
+    this.gender = req.getGender();
   }
 
   public String getUsername() {

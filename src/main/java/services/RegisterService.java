@@ -4,6 +4,8 @@ import dataaccess.DataAccessException;
 import dataaccess.Database;
 import dataaccess.PersonDao;
 import dataaccess.UserDao;
+import model.PersonModel;
+import model.UserModel;
 import request.RegisterRequest;
 import result.RegisterResult;
 
@@ -20,9 +22,8 @@ public class RegisterService {
    * @return some information including an auth token
    */
   public RegisterResult registerUser(RegisterRequest request){
-
-
     Database db = new Database();
+    RegisterResult result;
     try {
       db.openConnection();
       UserDao newUser = new UserDao(db.getConnection());
@@ -31,44 +32,35 @@ public class RegisterService {
       //user the data is register request to make a usermodel and a personmodel
       //then call the add user and person methods with the models
 
-      db.closeConnection(true);
-
       //return authtoken, username, personID, success
 //      RegisterResult rslt = new RegisterResult();
 //      return rslt;
 
+      UserModel newUserModel = new UserModel(request);
+      newUser.addUser(newUserModel);
+
+      PersonModel newPersonModel = new PersonModel(newUserModel);
+      newPerson.addPerson(newPersonModel);
 
 
+
+
+
+
+
+
+
+
+      db.closeConnection(true);
     } catch (DataAccessException e){
+      result = new RegisterResult("error - Register service didn't work", false);
       try {
         db.closeConnection(false);
       } catch (DataAccessException ex) {
         ex.printStackTrace();
       }
-      RegisterResult rslt = new RegisterResult("error - Register service didn't work", false);
-      return rslt;
+      return result;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //else just return a RegisterResult
 

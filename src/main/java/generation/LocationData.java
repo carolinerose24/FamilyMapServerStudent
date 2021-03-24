@@ -36,5 +36,5 @@ public class LocationData {
   public LocationData(ArrayList<Location> lData){
     data = lData;
   }
-  
+
 }

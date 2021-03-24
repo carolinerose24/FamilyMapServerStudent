@@ -38,6 +38,19 @@ public class PersonModel {
     this.spouseID=spouseID;
   }
 
+  public PersonModel(UserModel user){
+    this.personID = user.getPersonID(); //this would still be empty here?
+    this.username = user.getUsername();
+    this.firstName = user.getFirstName();
+    this.lastName = user.getLastName();
+    this.gender = user.getGender();
+    this.fatherID = "";
+    this.motherID = "";
+    this.spouseID = "";
+  }
+
+
+
   public String getPersonID() {
     return personID;
   }

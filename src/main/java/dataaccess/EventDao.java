@@ -1,5 +1,7 @@
 package dataaccess;
 
+import generation.LocationData;
+import generation.Serialize;
 import model.EventModel;
 import model.PersonModel;
 import model.UserModel;
@@ -14,6 +16,7 @@ public class EventDao {
 
 
   private final Connection conn;
+  private LocationData locations;
 
   /**
    * Constructor to initialize the Connection Object
@@ -22,6 +25,7 @@ public class EventDao {
   public EventDao(Connection conn)
   {
     this.conn = conn;
+    locations =Serialize.serializeLocationList("json/snames.json");
   }
 
 

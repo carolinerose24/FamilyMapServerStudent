@@ -1,5 +1,9 @@
 package dataaccess;
 
+import generation.FirstNameF;
+import generation.FirstNameM;
+import generation.LastNames;
+import generation.Serialize;
 import model.PersonModel;
 import model.UserModel;
 
@@ -12,6 +16,9 @@ import java.util.ArrayList;
 public class PersonDao {
 
   private final Connection conn;
+  private FirstNameF femaleNames;
+  private FirstNameM maleNames;
+  private LastNames lastnames;
 
 
   /**
@@ -21,6 +28,9 @@ public class PersonDao {
   public PersonDao(Connection conn)
   {
     this.conn = conn;
+    femaleNames = Serialize.serializeFemaleNameList("json/fnames.json");
+    maleNames = Serialize.serializeMaleNameList("json/mnames.json");
+    lastnames = Serialize.serializeLastNameList("json/snames.json");
   }
 
 

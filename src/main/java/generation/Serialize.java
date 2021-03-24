@@ -1,3 +1,5 @@
+package generation;
+
 import com.google.gson.*;
 import generation.FirstNameF;
 import generation.FirstNameM;
@@ -21,56 +23,56 @@ public class Serialize {
     //nothing here?
   }
 
-  public EventIDRequest SerializeEventIDRequest(Reader jsonInfo){
+  public static EventIDRequest SerializeEventIDRequest(Reader jsonInfo){
     EventIDRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, EventIDRequest.class);
     return req;
   }
 
-  public EventRequest SerializeEventRequest(Reader jsonInfo){
+  public static EventRequest SerializeEventRequest(Reader jsonInfo){
     EventRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, EventRequest.class);
     return req;
   }
 
-  public FillRequest SerializeFillRequest(Reader jsonInfo){
+  public static FillRequest SerializeFillRequest(Reader jsonInfo){
     FillRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, FillRequest.class);
     return req;
   }
 
-  public LoadRequest SerializeLoadRequest(Reader jsonInfo){
+  public static LoadRequest SerializeLoadRequest(Reader jsonInfo){
     LoadRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, LoadRequest.class);
     return req;
   }
 
-  public LoginRequest SerializeLoginRequest(Reader jsonInfo){
+  public static LoginRequest SerializeLoginRequest(Reader jsonInfo){
     LoginRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, LoginRequest.class);
     return req;
   }
 
-  public PersonIDRequest SerializePersonIDRequest(Reader jsonInfo){
+  public static PersonIDRequest SerializePersonIDRequest(Reader jsonInfo){
     PersonIDRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, PersonIDRequest.class);
     return req;
   }
 
-  public PersonRequest SerializePersonRequest(Reader jsonInfo){
+  public static PersonRequest SerializePersonRequest(Reader jsonInfo){
     PersonRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, PersonRequest.class);
     return req;
   }
 
-  public RegisterRequest SerializeRegisterRequest(Reader jsonInfo){
+  public static RegisterRequest SerializeRegisterRequest(Reader jsonInfo){
     RegisterRequest req;
     Gson gson = new Gson();
     req = gson.fromJson(jsonInfo, RegisterRequest.class);
@@ -80,7 +82,7 @@ public class Serialize {
 
   //should also have code here to reads in the name and location files into objects
 
-  public LocationData serializeLocationList(String filename){
+  public static LocationData serializeLocationList(String filename){
     Gson gson = new Gson();
     try{
       LocationData locations = gson.fromJson(new FileReader(filename), LocationData.class);
@@ -92,7 +94,7 @@ public class Serialize {
   }
 
 
-  public FirstNameF serializeFemaleNameList(String filename)
+  public static FirstNameF serializeFemaleNameList(String filename)
   {
     Gson gson = new Gson();
     try{
@@ -104,7 +106,7 @@ public class Serialize {
     return null;
   }
 
-  public FirstNameM serializeMaleNameList(String filename)
+  public static FirstNameM serializeMaleNameList(String filename)
   {
     Gson gson = new Gson();
     try{
@@ -116,7 +118,7 @@ public class Serialize {
     return null;
   }
 
-  public LastNames serializeLastNameList(String filename)
+  public static LastNames serializeLastNameList(String filename)
   {
     Gson gson = new Gson();
     try{
