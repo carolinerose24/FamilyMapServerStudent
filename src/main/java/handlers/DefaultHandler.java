@@ -30,17 +30,34 @@ public class DefaultHandler implements HttpHandler {
         if(urlPath.equals("/") || urlPath == null){
           urlPath = "/index.html";
         }
+
         String filePath = "web" + urlPath;
         //for security --> restrict what urlPath could be, but don't need to do that here
+
+
+        Path fPath = FileSystems.getDefault().getPath(filePath);
+        File newFile = new File(String.valueOf(fPath));
+        if(newFile.exists()){
+          exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+          Files.copy(Paths.get(filePath), exchange.getResponseBody());
+          exchange.getResponseBody().close();
+        } else {
+          exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+          exchange.getResponseBody().close();
+          success = true;
+        }
+
+
+
 
 
         //then create a file object and check if the file exists (file.exists())
         //return a 404 if not found
         //if file exists, read the file and write it to exchange's outputStream
-        File file = new File(filePath);
-        if(file.exists()){
+//        File file = new File(filePath);
 
-          OutputStream respBody = exchange.getResponseBody();
+
+//          OutputStream respBody = exchange.getResponseBody();
 //          OutputStream respBody =  null;
            // = exchange.getResponseBody();
 
@@ -49,66 +66,16 @@ public class DefaultHandler implements HttpHandler {
 
 
 
-          Path path = Paths.get(filePath);
-          byte[] data = Files.readAllBytes(path);
-
-          try{
-            respBody.write(data);
-          } catch (IOException e){
-            e.printStackTrace();
-          }
-
-//          for(int i = 0; i < data.length; ++i){
-//            respBody.write(data[i]);
-//          }
-
-//          respBody = exchange.getResponseBody();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//          OutputStream respBody = null;
-
-//          FileInputStream fileInputStream = null;
-//          int a = (int)file.length();
-//          byte[] bFile = new byte[(int) file.length()];
-//          try
-//          {
-//            //convert file into array of bytes
-//            fileInputStream = new FileInputStream(file);
-//            //respBody = new FileOutputStream(file);
-////            respBody = new OutputStream();
-//            fileInputStream.read(bFile);
-//            fileInputStream.close();
-//            //respBody.write(bFile);
+//          Path path = Paths.get(filePath);
+//          byte[] data = Files.readAllBytes(path);
 //
-//            for (int i = 0; i < bFile.length; i++)
-//            {
-////              System.out.print((char) bFile[i]);
-//              respBody.write(bFile[i]);
-//            }
-//            System.out.println("should have read the entire byte file now");
-//          }
-//          catch (Exception e)
-//          {
+//          try{
+//            respBody.write(data);
+//          } catch (IOException e){
 //            e.printStackTrace();
 //          }
 
 
-//          respBody = exchange.getResponseBody();
 
 
 
@@ -118,56 +85,16 @@ public class DefaultHandler implements HttpHandler {
 
 
 
-
-
-
-
-
-
-//          try{
-////            FileInputStream fin=new FileInputStream(file);
-////            int i=0;
-////            while((i=fin.read())!=-1){
-//////              System.out.print((char)i);
-////              respBody.write(fin.readAllBytes());
-////            }
-////            fin.close();
-//
-//
-//            OutputStream outputStream = new FileOutputStream(file);
-//
-////            while(file.) {
-////              file
-////              outputStream.write(data);
-////            }
-////            outputStream.close();
-//
-//            respBody = outputStream;
-//
-//
-//          }catch(Exception e){System.out.println(e);}
-//
-
-
-
-
-
-
-
-
-
-
-
-          exchange.sendResponseHeaders(HttpsURLConnection.HTTP_OK,0);
-          respBody.close();
-          success = true;
+//          exchange.sendResponseHeaders(HttpsURLConnection.HTTP_OK,0);
+//          respBody.close();
+//          success = true;
           //return success file code
           //REALLY NOT SURE IF THIS IS ALL YOU NEED TO DO RIGHT HERE??????????
-        } else {
-          //return the 404 error
-          exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
-          exchange.getResponseBody().close();
-        }
+
+      } else {
+        //if it is not a get, then it should fail HERE
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+        exchange.getResponseBody().close();
       }
 //      if(!success){
 //        //if it was bad

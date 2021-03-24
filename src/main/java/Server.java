@@ -2,9 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpServer;
 import generation.*;
-import handlers.DefaultHandler;
-import handlers.PersonHandler;
-import handlers.RegisterHandler;
+import handlers.*;
 import services.RegisterService;
 
 import java.io.IOException;
@@ -43,10 +41,19 @@ public class Server {
     server.setExecutor(null);
     System.out.println("Creating Contexts");
     //this is creating the handlers
+    server.createContext("/user/login", new LoginHandler());
     server.createContext("/user/register", new RegisterHandler());
     //that path is a prefix --> one of these contexts would get both /event and /event/8394839ID (so the handler must check for suffix
 
-    server.createContext("/person", new PersonHandler());
+    server.createContext("/load", new LoadHandler());
+    server.createContext("/fill/", new FillHandler());
+    server.createContext("/clear", new ClearHandler());
+
+
+
+    server.createContext("/person/", new PersonHandler());
+    server.createContext("/event/", new EventHandler());
+
 
     //need to do this for ALL of the url methods
 

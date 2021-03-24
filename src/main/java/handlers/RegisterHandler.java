@@ -16,6 +16,7 @@ public class RegisterHandler implements HttpHandler {
     //io exception because we are networking
 
     boolean success = false;
+
     try{
       if(exchange.getRequestMethod().toLowerCase().equals("post")){
         Headers reqHeaders = exchange.getRequestHeaders();
