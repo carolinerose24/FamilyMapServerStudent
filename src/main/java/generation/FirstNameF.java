@@ -28,25 +28,25 @@ public class FirstNameF {
   }
 
 
-  private void initializeFemaleNames(){
-    try{
-      Gson gson = new Gson();
-      Reader reader =Files.newBufferedReader(Paths.get("json","fnames.json"));
-      List<String> nameList = new Gson().fromJson(reader, new TypeToken<List<String>>() {}.getType());
-
-      for(String name : nameList){
-        firstNameFList.add(name);
-      }
-      reader.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
+//  private void initializeFemaleNames(){
+//    try{
+//      Gson gson = new Gson();
+//      Reader reader =Files.newBufferedReader(Paths.get("json","fnames.json"));
+//      List<String> nameList = new Gson().fromJson(reader, new TypeToken<List<String>>() {}.getType());
+//
+//      for(String name : nameList){
+//        firstNameFList.add(name);
+//      }
+//      reader.close();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
 
   public FirstNameF(){
     //call the method to initialize it
-    initializeFemaleNames();
+//    initializeFemaleNames();
   }
 
 

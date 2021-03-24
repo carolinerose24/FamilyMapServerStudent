@@ -1,6 +1,13 @@
 import com.google.gson.*;
+import generation.FirstNameF;
+import generation.FirstNameM;
+import generation.LastNames;
+import generation.LocationData;
 import request.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 
 public class Serialize {
@@ -71,26 +78,56 @@ public class Serialize {
   }
 
 
-  //is there any other situations where I need to serialize something?
+  //should also have code here to reads in the name and location files into objects
+
+  public LocationData serializeLocationList(String filename){
+    Gson gson = new Gson();
+    try{
+      LocationData locations = gson.fromJson(new FileReader(filename), LocationData.class);
+      return locations;
+    } catch (FileNotFoundException e){
+      e.printStackTrace();
+    }
+    return null;
+  }
 
 
+  public FirstNameF serializeFemaleNameList(String filename)
+  {
+    Gson gson = new Gson();
+    try{
+      FirstNameF femaleNames = gson.fromJson(new FileReader(filename), FirstNameF.class);
+      return femaleNames;
+    } catch (FileNotFoundException e){
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public FirstNameM serializeMaleNameList(String filename)
+  {
+    Gson gson = new Gson();
+    try{
+      FirstNameM maleNames = gson.fromJson(new FileReader(filename), FirstNameM.class);
+      return maleNames;
+    } catch (FileNotFoundException e){
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public LastNames serializeLastNameList(String filename)
+  {
+    Gson gson = new Gson();
+    try{
+      LastNames lastNameList = gson.fromJson(new FileReader(filename), LastNames.class);
+      return lastNameList;
+    } catch (FileNotFoundException e){
+      e.printStackTrace();
+    }
+    return null;
+  }
 
 
-
-
-//
-//
-//  //i'm not sure how this works when you can't make it general?
-//  public Object ReadJson(String jsonString){ //deserialization: json to java object
-//    Gson gson = new Gson();
-//    FillRequest fillObj = gson.fromJson(jsonString, FillRequest.class);
-//    return fillObj;
-//  }
-//
-//  public String WriteJson(Object obj){ //serialization: java object to json representation
-//    Gson gson = new Gson();
-//    String jsonString = gson.toJson(obj);
-//    return jsonString;
-//  }
 
 }
