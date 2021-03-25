@@ -33,14 +33,26 @@ public class UserDao {
    */
   public void addUser(UserModel user) throws DataAccessException{
 
+    //also need to check that all of the fields have SOMETHING in them
+    //also username needs to be unique, so we need to throw an error if it isn't correct
+      //will it do this automatically? if the username is the local key for the user table?
+
     String sql = "INSERT INTO User (Username, PersonID, Password, Email, FirstName, LastName, Gender) VALUES (?,?,?,?,?,?,?)";
     try (PreparedStatement stmt = conn.prepareStatement(sql)){
+
+      if(user.getUsername().isEmpty() || user.getPersonID().isEmpty() || user.getPassword().isEmpty() ||
+              user.getEmail().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getGender().isEmpty()){
+        throw new DataAccessException("error: empty field in userDAO");
+      }
       stmt.setString(1, user.getUsername());
       stmt.setString(2, user.getPersonID());
       stmt.setString(3, user.getPassword());
       stmt.setString(4, user.getEmail());
       stmt.setString(5, user.getFirstName());
       stmt.setString(6, user.getLastName());
+      if(user.getGender().length() != 1 || ((!user.getGender().equals("f")) && (!user.getGender().equals("f")))){
+        throw new DataAccessException("error: invalid gender in UserDao");
+      }
       stmt.setString(7, user.getGender());
 
       stmt.executeUpdate();

@@ -15,7 +15,7 @@ public class FirstNameF {
 
   private ArrayList<String> firstNameFList;
 
-  public String getRandomLastName(){
+  public String getRandomFemaleName(){
     int upperbound = firstNameFList.size();
     if(upperbound == 0){
       return null; //this should never happen

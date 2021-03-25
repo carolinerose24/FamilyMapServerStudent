@@ -1,9 +1,7 @@
 package services;
 
-import dataaccess.DataAccessException;
-import dataaccess.Database;
-import dataaccess.PersonDao;
-import dataaccess.UserDao;
+import dataaccess.*;
+import model.AuthTokenModel;
 import model.PersonModel;
 import model.UserModel;
 import request.RegisterRequest;
@@ -28,6 +26,8 @@ public class RegisterService {
       db.openConnection();
       UserDao newUser = new UserDao(db.getConnection());
       PersonDao newPerson = new PersonDao(db.getConnection());
+      AuthTokenDao newAToken = new AuthTokenDao(db.getConnection());
+      EventDao newEvent = new EventDao(db.getConnection());
 
       //user the data is register request to make a usermodel and a personmodel
       //then call the add user and person methods with the models
@@ -36,19 +36,25 @@ public class RegisterService {
 //      RegisterResult rslt = new RegisterResult();
 //      return rslt;
 
-      UserModel newUserModel = new UserModel(request);
-      newUser.addUser(newUserModel);
+      UserModel newUserModel = new UserModel(request); //personID was generated in userModel
+      newUser.addUser(newUserModel); //shouldn't have any empty values
 
-      PersonModel newPersonModel = new PersonModel(newUserModel);
-      newPerson.addPerson(newPersonModel);
-
-
+      PersonModel newPersonModel = new PersonModel(newUserModel); //transfers all the values from user to person, sets parents to null for now
+      newPerson.addPerson(newPersonModel); //adds that person to the table
 
 
 
+      //now we need to make 4 generations: (so the user + 4 layers above)
+      //and populate the person table with them
 
 
 
+      //then we need to
+
+
+      AuthTokenModel aModel = new AuthTokenModel(newUserModel.getUsername());
+      result = new RegisterResult(aModel.getAuthToken(), newUserModel.getUsername(), newUserModel.getPersonID(), true);
+              //auth token, username, personID, success
 
 
       db.closeConnection(true);
@@ -59,8 +65,8 @@ public class RegisterService {
       } catch (DataAccessException ex) {
         ex.printStackTrace();
       }
-      return result;
     }
+    return result;
 
     //else just return a RegisterResult
 
@@ -80,8 +86,6 @@ public class RegisterService {
     //make a new auth token
 
     //THEN make a RegisterResult from all of this combined data
-
-    return null;
   }
 
 

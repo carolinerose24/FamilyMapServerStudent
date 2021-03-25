@@ -9,6 +9,7 @@ import model.UserModel;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Person Data Access class to access the Person table
@@ -22,7 +23,7 @@ public class PersonDao {
 
 
   /**
-   * Constructor to initialize the Connection Object
+   * Constructor to initialize the Connection Object and names lists
    * @param conn
    */
   public PersonDao(Connection conn)
@@ -47,9 +48,12 @@ public class PersonDao {
       stmt.setString(3, person.getFirstName());
       stmt.setString(4, person.getLastName());
       stmt.setString(5, person.getGender());
-      stmt.setString(6, person.getFatherID());
-      stmt.setString(7, person.getMotherID());
-      stmt.setString(8, person.getSpouseID());
+      if(person.getGender().length() != 1 || ((!person.getGender().equals("f")) && (!person.getGender().equals("f")))) {
+        throw new DataAccessException("error: invalid gender in Personrao");
+      }
+      stmt.setString(6, person.getFatherID()); //can be null
+      stmt.setString(7, person.getMotherID()); //can be null
+      stmt.setString(8, person.getSpouseID()); //can be null
 
       stmt.executeUpdate();
     } catch (SQLException e){
@@ -94,6 +98,131 @@ public class PersonDao {
     }
     return null;
   }
+
+
+
+
+
+  public void makeGenerations(PersonModel mainPerson, int genToMake, EventDao eventDao) throws DataAccessException {
+    //make a mother & father (and assign them to the kid)
+    //make them each other's spouses
+    PersonModel father = makeParent(mainPerson, "m"); //male parent
+    PersonModel mother = makeParent(mainPerson, "f"); //female parent
+
+    updateFamilyMember(mother.getPersonID(), father, "SpouseID");
+    updateFamilyMember(father.getPersonID(), mother, "SpouseID");
+
+    //then do the event stuff
+    //we need to generate 3 events for each parent
+
+    
+
+
+
+    genToMake--;
+    if(genToMake > 0){
+      makeGenerations(mother, genToMake, eventDao);
+      makeGenerations(mother, genToMake, eventDao);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+  /**
+   * Method to make a parent person and assign it into the child that was passed in
+   * @param child
+   * @param gender
+   * @return
+   * @throws DataAccessException
+   */
+  public PersonModel makeParent(PersonModel child, String gender) throws DataAccessException {
+
+    //need to get a first and last name, make a personID, set their personID into the child's mother section
+    //insert that person into the person table, return that personModel;
+
+    String firstName;
+    String updateID;
+
+    if(gender.equals('f')){
+      firstName = femaleNames.getRandomFemaleName();
+      updateID = "MotherID";
+    } else {
+      firstName = maleNames.getRandomMaleName();
+      updateID = "FatherID";
+    }
+
+    String lastName = lastnames.getRandomLastName();
+    String newPersonID =UUID.randomUUID().toString();
+
+    //put the parent's personID into the child's place for that in the table
+    updateFamilyMember(newPersonID, child, updateID);
+
+    //now we need to take this new person's info, put it into a PersonModel, then insert them into the table
+    PersonModel newMember = new PersonModel(newPersonID, child.getUsername(), firstName, lastName, gender, "", "", "");
+    //they won't have a mother, father, or spouse yet
+
+
+    addPerson(newMember);
+
+    return newMember;
+  }
+
+
+  public void updateFamilyMember(String familyMemberID, PersonModel rootPerson, String memberType) throws DataAccessException {
+    try{
+      Statement stmt = null;
+      try{
+        //now update the PERSONID value for one of the family members
+        String sqlite = "UPDATE Person\n" + "Set " + memberType + " = '" + familyMemberID + "' "
+                + "WHERE personID = '" + rootPerson.getPersonID() + "'";
+        stmt = conn.createStatement();
+        stmt.executeUpdate(sqlite);
+      } finally {
+        if(stmt != null){
+          stmt.close();
+        }
+      }
+
+    } catch (SQLException e){
+      throw new DataAccessException("Update Family Member Failed");
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   /**

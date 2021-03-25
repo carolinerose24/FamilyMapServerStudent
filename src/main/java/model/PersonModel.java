@@ -44,7 +44,7 @@ public class PersonModel {
     this.firstName = user.getFirstName();
     this.lastName = user.getLastName();
     this.gender = user.getGender();
-    this.fatherID = "";
+    this.fatherID = ""; //new String(); does this do anything different from ""?
     this.motherID = "";
     this.spouseID = "";
   }

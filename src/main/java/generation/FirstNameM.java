@@ -15,7 +15,7 @@ public class FirstNameM {
 
   private ArrayList<String> firstNameMList;
 
-  public String getRandomLastName(){
+  public String getRandomMaleName(){
 
     int upperbound = firstNameMList.size();
     if(upperbound == 0){
