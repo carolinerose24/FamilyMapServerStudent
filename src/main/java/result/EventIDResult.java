@@ -10,12 +10,12 @@ public class EventIDResult {
   private String associatedUsername;
   private String eventID;
   private String personID;
-  private float latitude;
-  private float longitude;
+  private Float latitude;
+  private Float longitude;
   private String country;
   private String city;
   private String eventType;
-  private int year;
+  private Integer year;
 
   private String message;
   private boolean success;
@@ -67,6 +67,9 @@ public class EventIDResult {
   public EventIDResult(String message, boolean success){
     this.message=message;
     this.success=success;
+//    this.latitude = null;
+//    this.longitude = null;
+//    this.year = null;
   }
 
   public String getUsername() {

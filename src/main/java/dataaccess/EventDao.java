@@ -39,9 +39,6 @@ public class EventDao {
    */
   public void addEvent(EventModel event) throws DataAccessException {
 
-
-
-
     String sql = "INSERT INTO Event (EventID, Username, PersonID, Latitude, Longitude, Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?);";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
       stmt.setString(1, event.getEventID());
@@ -54,8 +51,9 @@ public class EventDao {
       stmt.setString(8, event.getEventType());
       stmt.setInt(9, event.getYear());
       stmt.executeUpdate();
+//      System.out.println("EventID: " + event.getEventID());
     } catch (SQLException e) {
-      throw new DataAccessException("Error when adding an event");
+      throw new DataAccessException("Error: Internal service error"); //couldn't add this event
     }
   }
 
@@ -78,6 +76,7 @@ public class EventDao {
                 rs.getString("PersonID"), rs.getFloat("Latitude"), rs.getFloat("Longitude"),
                 rs.getString("Country"), rs.getString("City"), rs.getString("EventType"),
                 rs.getInt("Year"));
+//        System.out.println("EventID: " + rs.getString("EventID"));
         return Event;
       }
     } catch (SQLException e) {
