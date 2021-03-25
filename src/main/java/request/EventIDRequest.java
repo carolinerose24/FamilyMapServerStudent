@@ -8,14 +8,14 @@ import model.AuthTokenModel;
 public class EventIDRequest {
 
   private String eventID;
-  private AuthTokenModel authtoken;
+  private String authtoken;
 
   /**
    * Constructor for Event ID Requests
    * @param eventID
    * @param authtoken
    */
-  public EventIDRequest(String eventID, AuthTokenModel authtoken) {
+  public EventIDRequest(String eventID, String authtoken) {
     this.eventID=eventID;
     this.authtoken=authtoken;
   }
@@ -28,11 +28,11 @@ public class EventIDRequest {
     this.eventID=eventID;
   }
 
-  public AuthTokenModel getAuthtoken() {
+  public String getAuthtoken() {
     return authtoken;
   }
 
-  public void setAuthtoken(AuthTokenModel authtoken) {
+  public void setAuthtoken(String authtoken) {
     this.authtoken=authtoken;
   }
 }

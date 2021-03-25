@@ -1,5 +1,7 @@
 package result;
 
+import model.EventModel;
+
 /**
  * Class for Event ID Results
  */
@@ -42,6 +44,19 @@ public class EventIDResult {
     this.eventType=eventType;
     this.year=year;
     this.success=success;
+  }
+
+  public EventIDResult(EventModel e){
+    this.associatedUsername = e.getUsername();
+    this.eventID = e.getEventID();
+    this.personID = e.getPersonID();
+    this.latitude = e.getLatitude();
+    this.longitude = e.getLongitude();
+    this.country = e.getCountry();
+    this.city = e.getCity();
+    this.eventType = e.getEventType();
+    this.year = e.getYear();
+    this.success = true;
   }
 
   /**

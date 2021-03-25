@@ -66,12 +66,42 @@ public class EventDao {
    * @return EventModel object
    * @throws DataAccessException
    */
-  public EventModel find(EventModel event) throws DataAccessException {
+  public EventModel findEvent(EventModel event) throws DataAccessException {
     EventModel Event;
     ResultSet rs = null;
     String sql = "SELECT * FROM Event WHERE EventID = ?;";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
       stmt.setString(1, event.getEventID());
+      rs = stmt.executeQuery();
+      if (rs.next()) {
+        Event = new EventModel(rs.getString("EventID"), rs.getString("Username"),
+                rs.getString("PersonID"), rs.getFloat("Latitude"), rs.getFloat("Longitude"),
+                rs.getString("Country"), rs.getString("City"), rs.getString("EventType"),
+                rs.getInt("Year"));
+        return Event;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new DataAccessException("Error while finding event");
+    } finally {
+      if(rs != null) {
+        try {
+          rs.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+
+    }
+    return null;
+  }
+
+  public EventModel findEvent(String eventID) throws DataAccessException {
+    EventModel Event;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM Event WHERE EventID = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setString(1, eventID);
       rs = stmt.executeQuery();
       if (rs.next()) {
         Event = new EventModel(rs.getString("EventID"), rs.getString("Username"),
