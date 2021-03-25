@@ -49,7 +49,7 @@ public class PersonDao {
       stmt.setString(4, person.getLastName());
       stmt.setString(5, person.getGender());
       if(person.getGender().length() != 1 || ((!person.getGender().equals("f")) && (!person.getGender().equals("f")))) {
-        throw new DataAccessException("error: invalid gender in Personrao");
+        throw new DataAccessException("error: invalid gender in Persondao");
       }
       stmt.setString(6, person.getFatherID()); //can be null
       stmt.setString(7, person.getMotherID()); //can be null
@@ -115,7 +115,7 @@ public class PersonDao {
     //then do the event stuff
     //we need to generate 3 events for each parent
 
-    
+
 
 
 
