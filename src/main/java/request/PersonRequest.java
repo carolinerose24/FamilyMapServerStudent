@@ -7,21 +7,21 @@ import model.AuthTokenModel;
  */
 public class PersonRequest {
 
-  private AuthTokenModel authToken;
+  private AuthTokenModel authtoken;
 
   /**
    * Constructor for Person Requests
-   * @param authToken
+   * @param authtoken
    */
-  public PersonRequest(AuthTokenModel authToken) {
-    this.authToken=authToken;
+  public PersonRequest(AuthTokenModel authtoken) {
+    this.authtoken=authtoken;
   }
 
-  public AuthTokenModel getAuthToken() {
-    return authToken;
+  public AuthTokenModel getAuthtoken() {
+    return authtoken;
   }
 
-  public void setAuthToken(AuthTokenModel authToken) {
-    this.authToken=authToken;
+  public void setAuthtoken(AuthTokenModel authtoken) {
+    this.authtoken=authtoken;
   }
 }

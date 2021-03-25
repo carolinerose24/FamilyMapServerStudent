@@ -34,7 +34,7 @@ public class RegisterHandler implements HttpHandler {
         Reader json =  new InputStreamReader(reqBody);
         RegisterRequest regRequest = Serialize.SerializeRegisterRequest(json);
         //make a new register service
-        System.out.println("Made the register request");
+//        System.out.println("Made the register request");
 
 
 
@@ -46,14 +46,14 @@ public class RegisterHandler implements HttpHandler {
 
 //        RegisterResult regResult = new RegisterResult("asdfasdf", "sd", "er", true);
         RegisterResult regResult = regService.registerUser(regRequest);
-        System.out.println("Got back the register result");
+//        System.out.println("Got back the register result");
 
         if(regResult.isSuccess()){
           exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
           String respData = Deserialize.toJsonDeserialize(regResult);
           OutputStream respBody = exchange.getResponseBody();
           writeString(respData, respBody);
-          System.out.println(respBody);
+//          System.out.println(respBody);
           respBody.close();
           success = true;
         } else {
@@ -61,7 +61,6 @@ public class RegisterHandler implements HttpHandler {
           String errorMessage = "{\"message\" : \"" + regResult.getMessage() + "\"}";
           OutputStream respBody = exchange.getResponseBody();
           writeString(errorMessage, respBody);
-          System.out.println(respBody);
           respBody.close();
         }
 

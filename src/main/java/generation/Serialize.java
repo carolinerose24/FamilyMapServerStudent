@@ -111,43 +111,4 @@ public class Serialize {
     return nameList;
   }
 
-
-  public static FirstNameF serializeFemaleNameList(String filename)
-  {
-    Gson gson = new Gson();
-    try{
-      FirstNameF femaleNames = gson.fromJson(new FileReader(filename), FirstNameF.class);
-      return femaleNames;
-    } catch (FileNotFoundException e){
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-  public static FirstNameM serializeMaleNameList(String filename)
-  {
-    Gson gson = new Gson();
-    try{
-      FirstNameM maleNames = gson.fromJson(new FileReader(filename), FirstNameM.class);
-      return maleNames;
-    } catch (FileNotFoundException e){
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-  public static LastNames serializeLastNameList(String filename)
-  {
-    Gson gson = new Gson();
-    try{
-      LastNames lastNameList = gson.fromJson(new FileReader(filename), LastNames.class);
-      return lastNameList;
-    } catch (FileNotFoundException e){
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-
-
 }

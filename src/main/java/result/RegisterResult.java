@@ -5,7 +5,7 @@ package result;
  */
 public class RegisterResult {
 
-  private String authToken;
+  private String authtoken;
   private String username;
   private String personID;
 
@@ -14,13 +14,13 @@ public class RegisterResult {
 
   /**
    * Constructor for Successful Register Results
-   * @param authToken
+   * @param authtoken
    * @param username
    * @param personID
    * @param success
    */
-  public RegisterResult(String authToken, String username, String personID, boolean success) {
-    this.authToken=authToken;
+  public RegisterResult(String authtoken, String username, String personID, boolean success) {
+    this.authtoken=authtoken;
     this.username=username;
     this.personID=personID;
     this.success=success;
@@ -37,12 +37,12 @@ public class RegisterResult {
     this.success=success;
   }
 
-  public String getAuthToken() {
-    return authToken;
+  public String getAuthtoken() {
+    return authtoken;
   }
 
-  public void setAuthToken(String authToken) {
-    this.authToken=authToken;
+  public void setAuthtoken(String authtoken) {
+    this.authtoken=authtoken;
   }
 
   public String getUsername() {

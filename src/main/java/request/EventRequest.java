@@ -7,22 +7,22 @@ import model.AuthTokenModel;
  */
 public class EventRequest {
 
-  private AuthTokenModel authToken;
+  private AuthTokenModel authtoken;
 
   /**
    * Constructor for Event Requests
-   * @param authToken
+   * @param authtoken
    */
-  public EventRequest(AuthTokenModel authToken) {
-    this.authToken=authToken;
+  public EventRequest(AuthTokenModel authtoken) {
+    this.authtoken=authtoken;
   }
 
-  public AuthTokenModel getAuthToken() {
-    return authToken;
+  public AuthTokenModel getAuthtoken() {
+    return authtoken;
   }
 
-  public void setAuthToken(AuthTokenModel authToken) {
-    this.authToken=authToken;
+  public void setAuthtoken(AuthTokenModel authtoken) {
+    this.authtoken=authtoken;
   }
 
 }
