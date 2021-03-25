@@ -28,68 +28,32 @@ public class RegisterHandler implements HttpHandler {
         RegisterService regService = new RegisterService();
 
 
-        //get request body
         InputStream reqBody = exchange.getRequestBody();
-        //decode request body
         Reader json =  new InputStreamReader(reqBody);
         RegisterRequest regRequest = Serialize.SerializeRegisterRequest(json);
-        //make a new register service
-//        System.out.println("Made the register request");
-
-
-
-        //delete everything from all the tables rn
-
-
-
-
-
-//        RegisterResult regResult = new RegisterResult("asdfasdf", "sd", "er", true);
         RegisterResult regResult = regService.registerUser(regRequest);
-//        System.out.println("Got back the register result");
 
         if(regResult.isSuccess()){
           exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-          String respData = Deserialize.toJsonDeserialize(regResult);
-          OutputStream respBody = exchange.getResponseBody();
-          writeString(respData, respBody);
-//          System.out.println(respBody);
-          respBody.close();
           success = true;
         } else {
           exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-          String errorMessage = "{\"message\" : \"" + regResult.getMessage() + "\"}";
-          OutputStream respBody = exchange.getResponseBody();
-          writeString(errorMessage, respBody);
-          respBody.close();
         }
-
-
-
-
-//        String respData = Deserialize.toJsonDeserialize(regResult);
-//        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-//        OutputStream respBody = exchange.getResponseBody();
-//        System.out.println(respBody);
-
-//        //write the json string to the output stream (small method below)
-//        writeString(respData, respBody);
-//
-//        System.out.println("wrote the response data into resp body");
-//        respBody.close();
-//        success = true;
-
+        String respData = Deserialize.toJsonDeserialize(regResult);
+        OutputStream respBody = exchange.getResponseBody();
+        writeString(respData, respBody);
+        respBody.close();
       }
-//      if(!success){
-//        //if it was bad
-//        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-//        exchange.getResponseBody().close();
-//      }
     }
-    catch (IOException e) {
-
+    catch (IOException e) { //i think this is what should be in here? it doesn't throw any errors for unhandled exceptions
       exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-      exchange.getResponseBody().close();
+      //is there were we send in a result that says internal service error and false?
+      RegisterResult regRes = new RegisterResult("Internal service error", false);
+      String respData = Deserialize.toJsonDeserialize(regRes);
+      OutputStream respBody = exchange.getResponseBody();
+      writeString(respData, respBody);
+      respBody.close();
+//      exchange.getResponseBody().close();
       e.printStackTrace();
     }
 

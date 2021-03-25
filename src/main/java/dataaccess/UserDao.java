@@ -42,7 +42,7 @@ public class UserDao {
 
       if(user.getUsername().isEmpty() || user.getPersonID().isEmpty() || user.getPassword().isEmpty() ||
               user.getEmail().isEmpty() || user.getFirstName().isEmpty() || user.getLastName().isEmpty() || user.getGender().isEmpty()){
-        throw new DataAccessException("error: empty field in userDAO");
+        throw new DataAccessException("Error: Request property missing or has invalid value");
       }
       stmt.setString(1, user.getUsername());
       stmt.setString(2, user.getPersonID());
@@ -51,14 +51,19 @@ public class UserDao {
       stmt.setString(5, user.getFirstName());
       stmt.setString(6, user.getLastName());
       if(user.getGender().length() != 1 || ((!user.getGender().equals("f")) && (!user.getGender().equals("m")))){
-        throw new DataAccessException("error: invalid gender in UserDao");
+        throw new DataAccessException("Error: Request property missing or has invalid value");
       }
       stmt.setString(7, user.getGender());
 
       stmt.executeUpdate();
     } catch (SQLException e){
       e.printStackTrace();
-      throw new DataAccessException("Error inserting a user");
+      String message = "";
+      if(e.getMessage().contains("UNIQUE constraint failed: User.Username")){
+        throw new DataAccessException("Error: Username already taken by another user");
+      } else {
+        throw new DataAccessException("Error: Request property missing or has invalid value");
+      }
     }
   }
 
