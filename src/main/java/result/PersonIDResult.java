@@ -1,5 +1,7 @@
 package result;
 
+import model.PersonModel;
+
 /**
  * Class for Person ID Results
  */
@@ -39,6 +41,30 @@ public class PersonIDResult {
     this.motherID=motherID;
     this.spouseID=spouseID;
     this.success=success;
+  }
+
+  public PersonIDResult(PersonModel person){
+    this.username = person.getUsername();
+    this.personID = person.getPersonID();
+    this.firstName = person.getFirstName();
+    this.lastName = person.getLastName();
+    this.gender = person.getGender();
+    this.fatherID = person.getFatherID();
+    this.motherID = person.getMotherID();
+    this.spouseID = person.getSpouseID();
+    this.success = true;
+  }
+
+  public PersonIDResult(PersonModel person, boolean success){
+    this.username = person.getUsername();
+    this.personID = person.getPersonID();
+    this.firstName = person.getFirstName();
+    this.lastName = person.getLastName();
+    this.gender = person.getGender();
+    this.fatherID = person.getFatherID();
+    this.motherID = person.getMotherID();
+    this.spouseID = person.getSpouseID();
+    this.success = success;
   }
 
   /**

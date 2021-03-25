@@ -101,6 +101,95 @@ public class PersonDao {
   }
 
 
+  public PersonModel findPerson(String PersonID) throws DataAccessException{
+    PersonModel Person;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM Person WHERE PersonID = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, PersonID);
+      rs = stmt.executeQuery();
+      if(rs.next()){
+
+        Person = new PersonModel(rs.getString("PersonID"), rs.getString("Username"),
+                rs.getString("FirstName"), rs.getString("LastName"),
+                rs.getString("Gender"),rs.getString("FatherID"),
+                rs.getString("MotherID"), rs.getString("SpouseID"));
+        return Person;
+      } else {
+        //no such person exists, so it is an Invalid personID parameter
+//        throw new DataAccessException("Error: Invalid personID parameter");
+      }
+    } catch (SQLException e){
+      e.printStackTrace();
+      throw new DataAccessException("Error: Invalid personID parameter");
+    } finally {
+      if(rs != null){
+        try{
+          rs.close();
+        } catch (SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }
+    return null;
+  }
+
+
+
+
+
+
+  public PersonModel findPerson(String username, String personID) throws DataAccessException{
+
+    PersonModel Person;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM Person WHERE PersonID = ? AND Username = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, personID);
+      stmt.setString(2, username);
+      rs = stmt.executeQuery();
+      if(rs.next()){
+
+        Person = new PersonModel(rs.getString("PersonID"), rs.getString("Username"),
+                rs.getString("FirstName"), rs.getString("LastName"),
+                rs.getString("Gender"),rs.getString("FatherID"),
+                rs.getString("MotherID"), rs.getString("SpouseID"));
+        return Person;
+      } else {
+        //you got nothing back, so there exists no person with this id
+      }
+    } catch (SQLException e){
+      e.printStackTrace();
+      throw new DataAccessException("Error: Invalid personID parameter");
+    } finally {
+      if(rs != null){
+        try{
+          rs.close();
+        } catch (SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }
+    return null;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /**
    * Generate the parents recursively to fill generations
    * @param mainPerson

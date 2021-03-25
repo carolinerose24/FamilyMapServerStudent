@@ -8,14 +8,14 @@ import model.AuthTokenModel;
 public class PersonIDRequest {
 
   private String personID;
-  private AuthTokenModel authtoken;
+  private String authtoken;
 
   /**
    * Constructor for Person ID Requests
    * @param personID
    * @param authtoken
    */
-  public PersonIDRequest(String personID, AuthTokenModel authtoken) {
+  public PersonIDRequest(String personID, String authtoken) {
     this.personID=personID;
     this.authtoken=authtoken;
   }
@@ -28,11 +28,11 @@ public class PersonIDRequest {
     this.personID=personID;
   }
 
-  public AuthTokenModel getAuthtoken() {
+  public String getAuthtoken() {
     return authtoken;
   }
 
-  public void setAuthtoken(AuthTokenModel authtoken) {
+  public void setAuthtoken(String authtoken) {
     this.authtoken=authtoken;
   }
 }

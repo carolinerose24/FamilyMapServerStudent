@@ -34,6 +34,7 @@ public class RegisterService {
       UserDao newUser = new UserDao(conn);
       PersonDao newPerson = new PersonDao(conn);
       EventDao newEvent = new EventDao(conn);
+      AuthTokenDao newAuth = new AuthTokenDao(conn);
 
       UserModel newUserModel = new UserModel(request); //personID was generated in userModel
       newUser.addUser(newUserModel); //shouldn't have any empty values
@@ -43,14 +44,19 @@ public class RegisterService {
       int year = newEvent.makeEventsForUser(newPersonModel); //make 3 events for the user (doesn't include death)
       newPerson.makeGenerations(newPersonModel, 4, year, newEvent);
       AuthTokenModel aModel = new AuthTokenModel(newUserModel.getUsername());
+      newAuth.addAuthToken(aModel);
+
+
       result = new RegisterResult(aModel.getAuthToken(), newUserModel.getUsername(), newUserModel.getPersonID(), true);
       db.closeConnection(true);
     } catch (DataAccessException e){
-      result = new RegisterResult(e.getMessage(), false);
+      result = new RegisterResult(e.getMessage(), false); //i think this will print the message in userDAO
       try {
         db.closeConnection(false);
       } catch (DataAccessException ex) {
         ex.printStackTrace(); //shouldn't get this error a lot?
+        result = new RegisterResult("Error: Internal service error", false); //this is only for when it can't open/close connections
+
       }
     }
 

@@ -31,7 +31,7 @@ public class UserModel {
    */
   public UserModel(String username, String personID, String password, String email, String firstName, String lastName, String gender) {
     this.username=username;
-    this.personID=personID;
+    this.personID=personID; //if this is provided, it doesn't need to be generated
     this.password=password;
     this.email=email;
     this.firstName=firstName;
@@ -41,6 +41,7 @@ public class UserModel {
 
   public UserModel(RegisterRequest req){
     this.username = req.getUsername();
+
     this.personID =UUID.randomUUID().toString(); //makes a new, random personID each time
     this.password = req.getPassword();
     this.email = req.getEmail();

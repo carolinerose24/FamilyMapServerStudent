@@ -42,7 +42,7 @@ public class LoginHandler implements HttpHandler {
       }
     } catch (IOException e){
       exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-      RegisterResult regRes = new RegisterResult("Internal service error", false);
+      RegisterResult regRes = new RegisterResult("Error: Internal service error", false);
       String respData = Deserialize.toJsonDeserialize(regRes);
       OutputStream respBody = exchange.getResponseBody();
       writeString(respData, respBody);

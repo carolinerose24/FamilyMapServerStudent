@@ -1,5 +1,6 @@
 package services;
 
+import dataaccess.AuthTokenDao;
 import dataaccess.DataAccessException;
 import dataaccess.Database;
 import dataaccess.UserDao;
@@ -29,11 +30,14 @@ public class LoginService {
       db.openConnection();
       Connection conn = db.getConnection();
       UserDao newUser = new UserDao(conn);
+      AuthTokenDao newAuth = new AuthTokenDao(conn);
 
       UserModel uModel = newUser.findUserLogin(request.getUsername(), request.getPassword());
 
       if(uModel != null){
         AuthTokenModel aModel = new AuthTokenModel(uModel.getUsername());
+        newAuth.addAuthToken(aModel);
+
         result = new LoginResult(aModel.getAuthToken(), uModel.getUsername(), uModel.getPersonID(), true);
       } else{ //we didn't find the user in the db
         result = new LoginResult("Request property missing or has invalid value", false);

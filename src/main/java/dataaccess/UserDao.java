@@ -57,8 +57,8 @@ public class UserDao {
 
       stmt.executeUpdate();
     } catch (SQLException e){
-      e.printStackTrace();
-      String message = "";
+//      e.printStackTrace();
+//      String message = "";
       if(e.getMessage().contains("UNIQUE constraint failed: User.Username")){
         throw new DataAccessException("Error: Username already taken by another user");
       } else {

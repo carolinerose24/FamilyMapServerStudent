@@ -48,7 +48,7 @@ public class RegisterHandler implements HttpHandler {
     catch (IOException e) { //i think this is what should be in here? it doesn't throw any errors for unhandled exceptions
       exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
       //is there were we send in a result that says internal service error and false?
-      RegisterResult regRes = new RegisterResult("Internal service error", false);
+      RegisterResult regRes = new RegisterResult("Error: Internal service error", false);
       String respData = Deserialize.toJsonDeserialize(regRes);
       OutputStream respBody = exchange.getResponseBody();
       writeString(respData, respBody);

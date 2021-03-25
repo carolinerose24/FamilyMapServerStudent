@@ -78,6 +78,35 @@ public class AuthTokenDao {
   }
 
 
+  public AuthTokenModel getAuthToken(String authToken) throws DataAccessException{
+    AuthTokenModel AuthToken;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM AuthToken WHERE AToken = ?;";
+    try(PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, authToken);
+      rs = stmt.executeQuery();
+      if (rs.next()){
+        AuthToken = new AuthTokenModel(rs.getString("AToken"), rs.getString("Username"));
+        return AuthToken;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw new DataAccessException("Error encountered while finding auth token");
+    } finally {
+      if(rs != null) {
+        try {
+          rs.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
+
+    }
+
+    return null;
+  }
+
+
 
 
 
