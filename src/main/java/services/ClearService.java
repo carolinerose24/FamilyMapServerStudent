@@ -1,6 +1,10 @@
 package services;
 
+import dataaccess.*;
 import result.ClearResult;
+
+import java.io.IOException;
+import java.sql.Connection;
 
 /**
  * Class for Clear Service
@@ -15,14 +19,35 @@ public class ClearService {
    * @return Clear Result
    */
   public ClearResult clearDatabase(){
+    Database db = new Database();
+    ClearResult result;
 
-    //don't need a clear request OR result specific class;
+    try{
+      db.openConnection();
+      Connection conn = db.getConnection();
+      UserDao newUser = new UserDao(conn);
+      PersonDao newPerson = new PersonDao(conn);
+      EventDao newEvent = new EventDao(conn);
+      AuthTokenDao newAuth = new AuthTokenDao(conn);
 
-    //if fails --> error is: Internal service error
+      newUser.clearUserTable();
+      newPerson.clearPersonTable();
+      newEvent.clearEventTable();
+      newAuth.clearAuthTokenTable();
 
-//    String message = "Clear succeeded.";
-//    boolean success = true;
-//    return Result(message, success);
-    return null;
+      result = new ClearResult("Clear succeeded.", true);
+
+      db.closeConnection(true);
+
+    } catch (DataAccessException e){
+      result = new ClearResult("Error: Internal server error", false);
+      try{
+        db.closeConnection(false);
+      } catch (DataAccessException ex){
+        ex.printStackTrace();
+      }
+    }
+
+    return result;
   }
 }

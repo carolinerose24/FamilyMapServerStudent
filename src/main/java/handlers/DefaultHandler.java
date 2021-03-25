@@ -47,50 +47,6 @@ public class DefaultHandler implements HttpHandler {
           success = true;
         }
 
-
-
-
-
-        //then create a file object and check if the file exists (file.exists())
-        //return a 404 if not found
-        //if file exists, read the file and write it to exchange's outputStream
-//        File file = new File(filePath);
-
-
-//          OutputStream respBody = exchange.getResponseBody();
-//          OutputStream respBody =  null;
-           // = exchange.getResponseBody();
-
-//          Files.copy(file.toPath(), respBody);
-          //need to somehow find a way to write the file into respBody outputstream
-
-
-
-//          Path path = Paths.get(filePath);
-//          byte[] data = Files.readAllBytes(path);
-//
-//          try{
-//            respBody.write(data);
-//          } catch (IOException e){
-//            e.printStackTrace();
-//          }
-
-
-
-
-
-
-
-
-
-
-
-//          exchange.sendResponseHeaders(HttpsURLConnection.HTTP_OK,0);
-//          respBody.close();
-//          success = true;
-          //return success file code
-          //REALLY NOT SURE IF THIS IS ALL YOU NEED TO DO RIGHT HERE??????????
-
       } else {
         //if it is not a get, then it should fail HERE
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
