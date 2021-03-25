@@ -26,7 +26,7 @@ public class RegisterService {
       db.openConnection();
       UserDao newUser = new UserDao(db.getConnection());
       PersonDao newPerson = new PersonDao(db.getConnection());
-      AuthTokenDao newAToken = new AuthTokenDao(db.getConnection());
+//      AuthTokenDao newAToken = new AuthTokenDao(db.getConnection());
       EventDao newEvent = new EventDao(db.getConnection());
 
       //user the data is register request to make a usermodel and a personmodel
@@ -46,12 +46,10 @@ public class RegisterService {
 
       //now we need to make 4 generations: (so the user + 4 layers above)
       //and populate the person table with them
+      newEvent.makeEventsForUser(newPersonModel); //make 3 events for the user (doesn't include death)
+      newPerson.makeGenerations(newPersonModel, 4, newEvent);
 
-
-
-      //then we need to
-
-
+      //then get a new auth token and return it
       AuthTokenModel aModel = new AuthTokenModel(newUserModel.getUsername());
       result = new RegisterResult(aModel.getAuthToken(), newUserModel.getUsername(), newUserModel.getPersonID(), true);
               //auth token, username, personID, success

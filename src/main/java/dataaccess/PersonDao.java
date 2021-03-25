@@ -103,7 +103,8 @@ public class PersonDao {
 
 
 
-  public void makeGenerations(PersonModel mainPerson, int genToMake, EventDao eventDao) throws DataAccessException {
+  public void makeGenerations(PersonModel mainPerson, int genToMake, int childBirthYear, EventDao eventDao) throws DataAccessException {
+    //make this recursive (because it takes in the number of gens to make each time, just update that and recurse up?
     //make a mother & father (and assign them to the kid)
     //make them each other's spouses
     PersonModel father = makeParent(mainPerson, "m"); //male parent
@@ -113,16 +114,13 @@ public class PersonDao {
     updateFamilyMember(father.getPersonID(), mother, "SpouseID");
 
     //then do the event stuff
-    //we need to generate 3 events for each parent
-
-
-
-
+    //we need to generate 3 events for each parent (assuming we have already generated the events for the main user)
+    int birthDate = eventDao.makeEventsForParents(father, mother, childBirthYear);
 
     genToMake--;
     if(genToMake > 0){
-      makeGenerations(mother, genToMake, eventDao);
-      makeGenerations(mother, genToMake, eventDao);
+      makeGenerations(mother, genToMake, birthDate, eventDao);
+      makeGenerations(mother, genToMake, birthDate, eventDao);
     }
   }
 
