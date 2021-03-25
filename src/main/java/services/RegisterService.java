@@ -34,37 +34,16 @@ public class RegisterService {
       UserDao newUser = new UserDao(conn);
       PersonDao newPerson = new PersonDao(conn);
       EventDao newEvent = new EventDao(conn);
-//      AuthTokenDao newAuth = new AuthTokenDao(conn);
-//      System.out.println("Made the DAO objects with the connection");
-
-//      newUser.clearUserTable();
-//      newPerson.clearPersonTable();
-//      newEvent.clearEventTable();
-//      newAuth.clearAuthTokenTable();
-
-
 
       UserModel newUserModel = new UserModel(request); //personID was generated in userModel
       newUser.addUser(newUserModel); //shouldn't have any empty values
       PersonModel newPersonModel = new PersonModel(newUserModel); //transfers all the values from user to person, sets parents to null for now
       newPerson.addPerson(newPersonModel); //adds that person to the table
-//      System.out.println("Adds the new user to User and Person");
 
-
-      //now we need to make 4 generations: (so the user + 4 layers above)
-      //and populate the person table with them
       int year = newEvent.makeEventsForUser(newPersonModel); //make 3 events for the user (doesn't include death)
       newPerson.makeGenerations(newPersonModel, 4, year, newEvent);
-//      System.out.println("Adds the 4 generations");
-
-      //then get a new auth token and return it
       AuthTokenModel aModel = new AuthTokenModel(newUserModel.getUsername());
       result = new RegisterResult(aModel.getAuthToken(), newUserModel.getUsername(), newUserModel.getPersonID(), true);
-              //auth token, username, personID, success
-
-//      System.out.println("gets an auth token");
-
-
       db.closeConnection(true);
     } catch (DataAccessException e){
       result = new RegisterResult(e.getMessage(), false);

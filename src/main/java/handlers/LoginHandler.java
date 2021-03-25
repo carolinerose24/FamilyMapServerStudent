@@ -6,6 +6,7 @@ import generation.Deserialize;
 import generation.Serialize;
 import request.LoginRequest;
 import result.LoginResult;
+import result.RegisterResult;
 import services.LoginService;
 
 import java.io.*;
@@ -41,7 +42,12 @@ public class LoginHandler implements HttpHandler {
       }
     } catch (IOException e){
       exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-      exchange.getResponseBody().close();
+      RegisterResult regRes = new RegisterResult("Internal service error", false);
+      String respData = Deserialize.toJsonDeserialize(regRes);
+      OutputStream respBody = exchange.getResponseBody();
+      writeString(respData, respBody);
+      respBody.close();
+//      exchange.getResponseBody().close();
       e.printStackTrace();
     }
 
