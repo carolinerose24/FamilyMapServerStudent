@@ -18,6 +18,11 @@ public class FillRequest {
     this.generations=generations; //the default is 4 if they don't specify
   }
 
+  public FillRequest(String username){
+    this.username=username;
+    this.generations=4;
+  }
+
   public String getUsername() {
     return username;
   }

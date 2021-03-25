@@ -235,23 +235,6 @@ public class EventDao {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /**
    * Clears the Event table
    * @throws DataAccessException
@@ -273,7 +256,8 @@ public class EventDao {
    * @param Username
    * @return
    */
-  public ArrayList<EventModel> getUsernameEventsData (String Username) throws DataAccessException { //or should this be a usermodle object?
+  public ArrayList<EventModel> getUsernameEventsData (String Username) throws DataAccessException {
+    //or should this be a usermodle object?
     //should this return all the events associated with this user? yes
 
     ArrayList<EventModel> eventArray = new ArrayList();
@@ -313,15 +297,34 @@ public class EventDao {
    * take in a user and then delete ALL THE events ASSOCIATED WITH THAT USERNAME
    * @param Username
    */
-  public void deleteUsernameEventsData(String Username) throws DataAccessException {
-    String sql = "DELETE FROM Event WHERE Username = ?;";
-    try (PreparedStatement stmt = conn.prepareStatement(sql)){
-      stmt.setString(1, Username);
-      stmt.executeUpdate(sql);
-    } catch (SQLException e){
-      e.printStackTrace();
-      throw new DataAccessException("Error deleting all people from a username");
-    }
+//  public void deleteUsernameEventsData(String Username) throws DataAccessException {
+//    String sql = "DELETE FROM Event WHERE Username = ?;";
+//    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+//      stmt.setString(1, Username);
+//      stmt.executeUpdate(sql);
+//    } catch (SQLException e){
+//      e.printStackTrace();
+//      throw new DataAccessException("Error deleting all people from a username");
+//    }
+//
+//  }
 
+  public void deleteUsernameEventsData(String Username) throws DataAccessException {
+    try{
+      Statement stmt = null;
+      try{
+        stmt = conn.createStatement();
+        String sql = "DELETE FROM Event WHERE Username ='" + Username + "';";
+        stmt.executeUpdate(sql);
+      } finally {
+        if(stmt != null){
+          stmt.close();
+        }
+      }
+    } catch(SQLException e){
+      throw new DataAccessException("Error deleting by username in eventDAO");
+    }
   }
+
+
 }

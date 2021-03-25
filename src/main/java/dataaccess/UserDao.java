@@ -140,6 +140,39 @@ public class UserDao {
     return null;
   }
 
+  public UserModel findUser(String username) throws DataAccessException{
+
+    UserModel User;
+    ResultSet rs = null;
+    String sql = "SELECT * FROM User WHERE Username = ?;";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)){
+      stmt.setString(1, username);
+      rs = stmt.executeQuery();
+      if(rs.next()){
+        User = new UserModel(rs.getString("Username"), rs.getString("PersonID"),
+                rs.getString("Password"), rs.getString("Email"),
+                rs.getString("FirstName"),rs.getString("LastName"),
+                rs.getString("Gender"));
+        return User;
+      }
+//      else{
+//        throw new DataAccessException("Error: Request property missing or has invalid value"); //we didn't find a user like this
+//      }
+    } catch (SQLException e){
+      e.printStackTrace();
+      throw new DataAccessException("Error: Request property missing or has invalid value");
+    } finally {
+      if(rs != null){
+        try{
+          rs.close();
+        } catch (SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }
+    return null;
+  }
+
 
 
 

@@ -380,16 +380,62 @@ public class PersonDao {
    * take in a user and then delete ALL THE PEOPLE ASSOCIATED WITH THAT USERNAME
    * @param Username
    */
+//  public void deleteUsernameDa(String Username) throws DataAccessException {
+//
+//    String sql = "DELETE FROM Person WHERE Username = ?;";
+//    try (PreparedStatement stmt = conn.prepareStatement()){
+//      stmt.setString(1, Username);
+//      stmt.executeUpdate(sql);
+//    } catch (SQLException e){
+//      e.printStackTrace();
+//      throw new DataAccessException("Error deleting all people from a username");
+//    }
+//  }
+
+//  public void deleteUsernameData(String Username) throws DataAccessException {
+//    try (Statement stmt = conn.createStatement()){
+//      String sql = "DELETE FROM Person WHERE Username = " + Username + ";";
+//      stmt.executeUpdate(sql);
+//    } catch (SQLException e){
+//      throw new DataAccessException("SQL Error encountered while clearing tables");
+//    }
+//  }
+
   public void deleteUsernameData(String Username) throws DataAccessException {
-
-    String sql = "DELETE FROM Person WHERE Username = ?;";
-    try (PreparedStatement stmt = conn.prepareStatement(sql)){
-      stmt.setString(1, Username);
-      stmt.executeUpdate(sql);
-    } catch (SQLException e){
-      e.printStackTrace();
-      throw new DataAccessException("Error deleting all people from a username");
+    try{
+      Statement stmt = null;
+      try{
+        stmt = conn.createStatement();
+        String sql = "DELETE FROM Person WHERE Username ='" + Username + "';";
+        stmt.executeUpdate(sql);
+      } finally {
+        if(stmt != null){
+          stmt.close();
+        }
+      }
+    } catch(SQLException e){
+      throw new DataAccessException("Error deleting by username @@@");
     }
-
   }
+
+//  public void deleteUsernameDataSafe(String Username) throws DataAccessException {
+//    try{
+//      try (PreparedStatement stmt=conn.prepareStatement()) {
+//          String sql="DELETE FROM Person WHERE Username =" + Username + ";";
+//          stmt.setString(1, Username);
+//          stmt.executeUpdate(sql);
+//        } finally {
+//          if (stmt != null) {
+//            stmt.close();
+//          }
+//        }
+//      }
+//    } catch(SQLException e){
+//      throw new DataAccessException("Error deleting by username");
+//    }
+//  }
+
+
+
+
 }
