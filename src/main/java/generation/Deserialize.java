@@ -11,58 +11,49 @@ public class Deserialize {
 
   }
 
-  public String Deserialize(ClearResult result){
+  public static String toJsonDeserialize(ClearResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(EventIDResult result){
+  public static String toJsonDeserialize(EventIDResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(EventResult result){
+  public static String toJsonDeserialize(EventResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(FillResult result){
+  public static String toJsonDeserialize(FillResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(LoadResult result){
+  public static String toJsonDeserialize(LoadResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(LoginResult result){
+  public static String toJsonDeserialize(LoginResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(PersonIDResult result){
+  public static String toJsonDeserialize(PersonIDResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(PersonResult result){
+  public static String toJsonDeserialize(PersonResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
-  public String Deserialize(RegisterResult result){
+  public static String toJsonDeserialize(RegisterResult result){
     Gson gson = new Gson();
-    String newjson = gson.toJson(result);
-    return newjson;
+    return gson.toJson(result);
   }
 
 

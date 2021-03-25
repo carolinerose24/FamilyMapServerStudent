@@ -1,16 +1,15 @@
 package generation;
 
 import com.google.gson.*;
-import generation.FirstNameF;
-import generation.FirstNameM;
-import generation.LastNames;
-import generation.LocationData;
 import request.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 
 public class Serialize {
 
@@ -91,6 +90,25 @@ public class Serialize {
       e.printStackTrace();
     }
     return null;
+  }
+
+
+  public static ArrayList<String> serializeNameList(String filename){
+    ArrayList<String> nameList = new ArrayList<>();
+      Object obj =null;
+      try {
+        obj=new JsonParser().parse(new FileReader(filename));
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+      JsonObject jo = (JsonObject) obj;
+      JsonArray ja = (JsonArray) jo.get("data");
+      for(int i = 0; i < ja.size(); i++){
+        String name = ja.get(i).toString();
+        name = name.replaceAll("\"", "");
+        nameList.add(name);
+      }
+    return nameList;
   }
 
 

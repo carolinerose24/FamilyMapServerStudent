@@ -1,11 +1,8 @@
 package dataaccess;
 
-import generation.FirstNameF;
-import generation.FirstNameM;
-import generation.LastNames;
+import generation.NameData;
 import generation.Serialize;
 import model.PersonModel;
-import model.UserModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,10 +14,9 @@ import java.util.UUID;
 public class PersonDao {
 
   private final Connection conn;
-  private FirstNameF femaleNames;
-  private FirstNameM maleNames;
-  private LastNames lastnames;
-
+  private NameData femaleNames;
+  private NameData maleNames;
+  private NameData lastNames;
 
   /**
    * Constructor to initialize the Connection Object and names lists
@@ -29,9 +25,14 @@ public class PersonDao {
   public PersonDao(Connection conn)
   {
     this.conn = conn;
-    femaleNames = Serialize.serializeFemaleNameList("json/fnames.json");
-    maleNames = Serialize.serializeMaleNameList("json/mnames.json");
-    lastnames = Serialize.serializeLastNameList("json/snames.json");
+    femaleNames = new NameData(Serialize.serializeNameList("json/fnames.json"));
+    maleNames = new NameData(Serialize.serializeNameList("json/mnames.json"));
+    lastNames = new NameData(Serialize.serializeNameList("json/snames.json"));
+//    ArrayList<String> temp = Serialize.serializeNameList("json/fnames.json");
+//    femaleNames.setNameList(temp);
+//    femaleNames.setNameList(Serialize.serializeNameList("json/fnames.json"));// = Serialize.serializeNameList("json/fnames.json");
+//    maleNames.setNameList(Serialize.serializeNameList("json/mnames.json"));// = Serialize.serializeNameList("json/mnames.json");
+//    lastNames.setNameList(Serialize.serializeNameList("json/snames.json"));// = Serialize.serializeNameList("json/snames.json");
   }
 
 
@@ -48,7 +49,7 @@ public class PersonDao {
       stmt.setString(3, person.getFirstName());
       stmt.setString(4, person.getLastName());
       stmt.setString(5, person.getGender());
-      if(person.getGender().length() != 1 || ((!person.getGender().equals("f")) && (!person.getGender().equals("f")))) {
+      if(person.getGender().length() != 1 || ((!person.getGender().equals("f")) && (!person.getGender().equals("m")))) {
         throw new DataAccessException("error: invalid gender in Persondao");
       }
       stmt.setString(6, person.getFatherID()); //can be null
@@ -100,9 +101,14 @@ public class PersonDao {
   }
 
 
-
-
-
+  /**
+   * Generate the parents recursively to fill generations
+   * @param mainPerson
+   * @param genToMake
+   * @param childBirthYear
+   * @param eventDao
+   * @throws DataAccessException
+   */
   public void makeGenerations(PersonModel mainPerson, int genToMake, int childBirthYear, EventDao eventDao) throws DataAccessException {
     //make this recursive (because it takes in the number of gens to make each time, just update that and recurse up?
     //make a mother & father (and assign them to the kid)
@@ -126,13 +132,6 @@ public class PersonDao {
 
 
 
-
-
-
-
-
-
-
   /**
    * Method to make a parent person and assign it into the child that was passed in
    * @param child
@@ -145,18 +144,25 @@ public class PersonDao {
     //need to get a first and last name, make a personID, set their personID into the child's mother section
     //insert that person into the person table, return that personModel;
 
-    String firstName;
-    String updateID;
+    String firstName = "";
+    String updateID = "";
+    String lastName = "";
 
-    if(gender.equals('f')){
-      firstName = femaleNames.getRandomFemaleName();
+    if(gender.equals("f")){
+      firstName = femaleNames.getRandomName();
       updateID = "MotherID";
     } else {
-      firstName = maleNames.getRandomMaleName();
+      firstName = maleNames.getRandomName();
       updateID = "FatherID";
     }
+//
+    lastName = lastNames.getRandomName();
 
-    String lastName = lastnames.getRandomLastName();
+//    //test stuff
+//    firstName = "bob";
+//    lastName = "cratchet";
+
+
     String newPersonID =UUID.randomUUID().toString();
 
     //put the parent's personID into the child's place for that in the table

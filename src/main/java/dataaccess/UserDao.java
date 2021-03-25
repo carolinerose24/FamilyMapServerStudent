@@ -50,7 +50,7 @@ public class UserDao {
       stmt.setString(4, user.getEmail());
       stmt.setString(5, user.getFirstName());
       stmt.setString(6, user.getLastName());
-      if(user.getGender().length() != 1 || ((!user.getGender().equals("f")) && (!user.getGender().equals("f")))){
+      if(user.getGender().length() != 1 || ((!user.getGender().equals("f")) && (!user.getGender().equals("m")))){
         throw new DataAccessException("error: invalid gender in UserDao");
       }
       stmt.setString(7, user.getGender());

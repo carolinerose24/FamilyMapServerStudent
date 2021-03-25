@@ -20,12 +20,6 @@ public class Server {
   private static final int MAX_WAITING_CONNECTIONS = 12;
   private HttpServer server;
 
-  private LocationData Locations;
-  private FirstNameF fNames;
-  private FirstNameM mNames;
-  private LastNames lNames;
-
-
   private void run(String portNumber) {
     System.out.println("Initializing HTTP server");
     try{
@@ -63,7 +57,6 @@ public class Server {
   }
 
 
-
   /**
    * Takes portNumber (unsigned 16 bit int --> just a random number)
    * @param args port number
@@ -72,6 +65,5 @@ public class Server {
     String portNumber = args[0];
     new Server().run(portNumber);
   }
-
 
 }
