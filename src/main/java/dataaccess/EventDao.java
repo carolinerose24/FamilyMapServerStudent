@@ -27,7 +27,7 @@ public class EventDao {
   public EventDao(Connection conn)
   {
     this.conn = conn;
-    locations =Serialize.serializeLocationList("json/locations.json");
+    locations = new LocationData(Serialize.serializeLocationList("json/locations.json"));
     //this might not work, if not look at nameData code
   }
 
