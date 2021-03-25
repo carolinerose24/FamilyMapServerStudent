@@ -5,7 +5,7 @@ package result;
  */
 public class EventIDResult {
 
-  private String username;
+  private String associatedUsername;
   private String eventID;
   private String personID;
   private float latitude;
@@ -20,7 +20,7 @@ public class EventIDResult {
 
   /**
    * Constructor for Successful Event ID Results
-   * @param username
+   * @param associatedUsername
    * @param eventID
    * @param personID
    * @param latitude
@@ -31,8 +31,8 @@ public class EventIDResult {
    * @param year
    * @param success
    */
-  public EventIDResult(String username, String eventID, String personID, float latitude, float longitude, String country, String city, String eventType, int year, boolean success) {
-    this.username=username;
+  public EventIDResult(String associatedUsername, String eventID, String personID, float latitude, float longitude, String country, String city, String eventType, int year, boolean success) {
+    this.associatedUsername=associatedUsername;
     this.eventID=eventID;
     this.personID=personID;
     this.latitude=latitude;
@@ -55,11 +55,11 @@ public class EventIDResult {
   }
 
   public String getUsername() {
-    return username;
+    return associatedUsername;
   }
 
-  public void setUsername(String username) {
-    this.username=username;
+  public void setUsername(String associatedUsername) {
+    this.associatedUsername=associatedUsername;
   }
 
   public String getEventID() {

@@ -48,7 +48,7 @@ public class PersonIDService {
           //there is no one of that personID, return
           perIDRes = new PersonIDResult("Error: Invalid personID parameter", false);
           //else we need to check if that person is owned by that user
-        } else if(foundPerson.getUsername() != username){
+        } else if(!foundPerson.getUsername().equals(username)){
           //they don't own that person
           perIDRes = new PersonIDResult("Error: Requested person does not belong to this user", false);
         } else { //all is well

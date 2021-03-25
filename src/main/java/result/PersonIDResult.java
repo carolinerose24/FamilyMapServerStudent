@@ -7,7 +7,7 @@ import model.PersonModel;
  */
 public class PersonIDResult {
 
-  private String username;
+  private String associatedUsername;
   private String personID;
   private String firstName;
   private String lastName;
@@ -21,7 +21,7 @@ public class PersonIDResult {
 
   /**
    * Constructor for Successful Person ID Results
-   * @param username
+   * @param associatedUsername
    * @param personID
    * @param firstName
    * @param lastName
@@ -31,8 +31,8 @@ public class PersonIDResult {
    * @param spouseID
    * @param success
    */
-  public PersonIDResult(String username, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
-    this.username=username;
+  public PersonIDResult(String associatedUsername, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
+    this.associatedUsername=associatedUsername;
     this.personID=personID;
     this.firstName=firstName;
     this.lastName=lastName;
@@ -44,7 +44,7 @@ public class PersonIDResult {
   }
 
   public PersonIDResult(PersonModel person){
-    this.username = person.getUsername();
+    this.associatedUsername = person.getUsername();
     this.personID = person.getPersonID();
     this.firstName = person.getFirstName();
     this.lastName = person.getLastName();
@@ -56,7 +56,7 @@ public class PersonIDResult {
   }
 
   public PersonIDResult(PersonModel person, boolean success){
-    this.username = person.getUsername();
+    this.associatedUsername = person.getUsername();
     this.personID = person.getPersonID();
     this.firstName = person.getFirstName();
     this.lastName = person.getLastName();
@@ -78,11 +78,11 @@ public class PersonIDResult {
   }
 
   public String getUsername() {
-    return username;
+    return associatedUsername;
   }
 
-  public void setUsername(String username) {
-    this.username=username;
+  public void setUsername(String associatedUsername) {
+    this.associatedUsername=associatedUsername;
   }
 
   public String getPersonID() {
