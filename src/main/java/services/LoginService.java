@@ -40,12 +40,12 @@ public class LoginService {
 
         result = new LoginResult(aModel.getAuthToken(), uModel.getUsername(), uModel.getPersonID(), true);
       } else{ //we didn't find the user in the db
-        result = new LoginResult("Request property missing or has invalid value", false);
+        result = new LoginResult("Error: Request property missing or has invalid value", false);
       }
       db.closeConnection(true); //true because we aren't making any changes to the db
 
     } catch (DataAccessException e){ //i don't think any exceptions would be thrown here
-      result = new LoginResult("Request property missing or has invalid value", false);
+      result = new LoginResult("Error: Request property missing or has invalid value", false);
       try{
         db.closeConnection(false);
       } catch (DataAccessException ex){

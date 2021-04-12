@@ -11,6 +11,7 @@ import result.PersonIDResult;
 import result.PersonResult;
 import result.RegisterResult;
 import services.PersonIDService;
+import services.PersonService;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,6 +38,23 @@ public class PersonHandler implements HttpHandler {
           if(RequestUrl.equals("/person") || RequestUrl.equals("/person/")){
 
             //we now need to call the Person method
+            PersonRequest personReq = new PersonRequest(authToken);
+
+            PersonService personServ = new PersonService();
+            PersonResult personRes = personServ.getFamilyMembers(personReq);
+
+
+
+            if(personRes.isSuccess()){
+              //it returned TRUE
+              exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+            } else if (!personRes.getMessage().equals("Error: Internal service error")){ //a user error
+              exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+            } else {
+              exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+            }
+
+
 
 
 

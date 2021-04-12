@@ -336,13 +336,13 @@ public class PersonDao {
    * @param Username
    * @return
    */
-  public ArrayList<PersonModel> getUsernameInfo (String Username) throws DataAccessException { //or should this be a usermodel object? --> i can change this later if need be
+  public PersonModel[] getUsernameInfo (String Username) throws DataAccessException { //or should this be a usermodel object? --> i can change this later if need be
 
     //query the person table based on the username
     //return all the people that are associated with that username
     //add them to an array, then return that
 
-    ArrayList<PersonModel> personArray = new ArrayList();
+    ArrayList<PersonModel> personArray = new ArrayList<>();
     PersonModel Person;
     ResultSet rs = null;
     String sql = "SELECT * FROM Person WHERE Username = ?;";
@@ -371,7 +371,7 @@ public class PersonDao {
     }
 
     if(!personArray.isEmpty()){
-      return personArray;
+      return (PersonModel[]) personArray.toArray();
     }
     return null;
   }

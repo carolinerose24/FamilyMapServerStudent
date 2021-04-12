@@ -8,6 +8,7 @@ import model.AuthTokenModel;
 public class PersonRequest {
 
   private AuthTokenModel authtoken;
+  private String atoken;
 
   /**
    * Constructor for Person Requests
@@ -15,6 +16,10 @@ public class PersonRequest {
    */
   public PersonRequest(AuthTokenModel authtoken) {
     this.authtoken=authtoken;
+  }
+
+  public PersonRequest(String atoken){
+    this.atoken = atoken;
   }
 
   public AuthTokenModel getAuthtoken() {

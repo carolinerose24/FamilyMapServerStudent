@@ -29,6 +29,17 @@ public class EventHandler implements HttpHandler {
           String RequestUrl = exchange.getRequestURI().toString();
           if(RequestUrl.equals("/event") || RequestUrl.equals("/event/")){
             //call the /event method
+
+
+
+
+
+
+
+
+
+
+
           } else {
             //event ID method
             String eventID = RequestUrl.substring(7);

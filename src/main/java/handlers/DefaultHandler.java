@@ -43,13 +43,14 @@ public class DefaultHandler implements HttpHandler {
           exchange.getResponseBody().close();
         } else {
           exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+          Files.copy(Paths.get("web/HTML/404.html"), exchange.getResponseBody());
           exchange.getResponseBody().close();
-          success = true;
+//          success = true;
         }
 
       } else {
         //if it is not a get, then it should fail HERE
-        exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
         exchange.getResponseBody().close();
       }
 //      if(!success){
